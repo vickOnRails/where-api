@@ -1,5 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
+import bodyParser from "body-parser";
+
 import connectDB from "./db";
 
 import countriesRoutes from "./routes/countries";
@@ -7,10 +9,17 @@ import adminRoutes from "./routes/admin.routes";
 import indexRoutes from "./routes";
 import authRoutes from "./routes/auth.routes";
 
+// Set configuration to allow parsing of .env variables
 dotenv.config();
 
+// start express app
 const app = express();
 
+// setup body parser to parse request body
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+// connect to database
 connectDB();
 
 // Handle navigation and api documentation
