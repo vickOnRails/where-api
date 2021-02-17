@@ -34,11 +34,23 @@ const createCountry = async (req: Request, res: Response) => {
 };
 
 // api/admin/countries
-const getCountryById = (req: Request, res: Response) => {
-  res.json({
-    message: "Get Single Country",
-    endpoint: "/api/admin/countries/country",
-  });
+const getCountryById = async (req: Request, res: Response) => {
+  const { countryId } = req.params;
+
+  try {
+    const country = await Country.findById(countryId);
+    if (!country) {
+      res.status(404).json({
+        message: "This country does not exist yet",
+      });
+    }
+
+    res.json(country);
+  } catch (err) {
+    res.status(500).json({
+      message: err.message,
+    });
+  }
 };
 
 // api/admin/countries
