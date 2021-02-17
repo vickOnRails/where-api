@@ -1,0 +1,31 @@
+# Todos
+
+- Setup mongoose collection named whereapis
+- Setup schema for
+  - countries
+  - states
+  - lgas
+  - wards
+  - user
+- Setup country entities
+  - Nigeria
+    - states
+    - lgas
+    - wards
+  - Kenya
+    - Counties
+    - sub-counties
+    - wards
+  - South Africa
+    - Provinces
+    - Districts
+    - Local Municipalities
+  - Ethiopia
+    - Region
+    - Zone
+    - Districts
+- Setup of a list of people to talk to from different countries
+  - Nigeria
+  - Kenya
+  - South Africa
+  - Ethiopia
