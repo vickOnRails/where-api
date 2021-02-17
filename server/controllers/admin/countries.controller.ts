@@ -40,8 +40,8 @@ const getCountryById = async (req: Request, res: Response) => {
   try {
     const country = await Country.findById(countryId);
     if (!country) {
-      res.status(404).json({
-        message: "This country does not exist yet",
+      return res.status(404).json({
+        message: "This country does not exist",
       });
     }
 
@@ -54,18 +54,55 @@ const getCountryById = async (req: Request, res: Response) => {
 };
 
 // api/admin/countries
-const editCountry = (req: Request, res: Response) => {
-  res.json({
-    message: "Edit Country",
-    endpoint: "/api/admin/countries/country",
-  });
+const editCountry = async (req: Request, res: Response) => {
+  const { countryId } = req.params;
+  const newValues = req.body;
+
+  try {
+    const country = await Country.findByIdAndUpdate(
+      { _id: countryId },
+      {
+        ...newValues,
+      },
+      { new: true }
+    );
+
+    if (!country)
+      return res.status(404).json({
+        message: "This country does not exist",
+      });
+
+    res.json({
+      message: "Country updated",
+      country,
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: err.message,
+    });
+  }
 };
 
-const deleteCountry = (req: Request, res: Response) => {
-  res.json({
-    message: "Delete Country",
-    endpoint: "/api/admin/countries/country",
-  });
+const deleteCountry = async (req: Request, res: Response) => {
+  const { countryId } = req.params;
+
+  try {
+    const docToRemove = await Country.findOneAndDelete({ _id: countryId });
+
+    if (!docToRemove)
+      return res.status(404).json({
+        message: "Country does not exist",
+      });
+
+    res.json({
+      message: "Country removed",
+      removedCountry: docToRemove,
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: err.message,
+    });
+  }
 };
 
 export {

@@ -19,9 +19,9 @@ router.get("/countries/:countryId", getCountryById);
 router.post("/countries", createCountry);
 
 // api/admin/countries
-router.put("/countries/:countryID", editCountry);
+router.put("/countries/:countryId", editCountry);
 
 // api/admin/countries
-router.delete("/countries/:countryID", deleteCountry);
+router.delete("/countries/:countryId", deleteCountry);
 
 export default router;
