@@ -11,7 +11,7 @@ import {
 router.get("/", getAllCountries);
 
 // api/countries/ng
-router.get("/:ng", getCountryById);
+router.get("/:countryId", getCountryById);
 
 // api/countries/ng/states
 router.get("/ng/states", getNigerianStates);

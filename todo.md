@@ -2,7 +2,7 @@
 
 - Setup mongoose collection named whereapis
 - Setup schema for
-  - countries
+  - countries ✅
   - states
   - lgas
   - wards
