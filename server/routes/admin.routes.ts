@@ -8,6 +8,7 @@ import {
   deleteCountry,
   editCountry,
 } from "../controllers/admin/countries.controller";
+import { createNigerianState } from "../controllers/admin/states.controllers";
 
 // api/admin/countries
 router.get("/countries", getAllCountries);
@@ -23,5 +24,10 @@ router.put("/countries/:countryId", editCountry);
 
 // api/admin/countries
 router.delete("/countries/:countryId", deleteCountry);
+
+// statesId
+// ------------------------
+
+router.post("/countries/ng/states", createNigerianState);
 
 export default router;

@@ -4,7 +4,7 @@ import bodyParser from "body-parser";
 
 import connectDB from "./db";
 
-import countriesRoutes from "./routes/countries";
+import countriesRoutes from "./routes/countries.routes";
 import adminRoutes from "./routes/admin.routes";
 import indexRoutes from "./routes";
 import authRoutes from "./routes/auth.routes";

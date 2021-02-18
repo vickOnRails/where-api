@@ -7,11 +7,11 @@ const getAllCountries = async (req: Request, res: Response) => {
   res.json(countries);
 };
 
-const getCountryById = async (req: Request, res: Response) => {
-  const { countryId } = req.params;
+const getCountryByCode = async (req: Request, res: Response) => {
+  const { countryCode } = req.params;
 
   try {
-    const country = await Country.findById(countryId);
+    const country = await Country.find({ code: countryCode });
 
     if (!country) {
       return res.status(404).json({
@@ -27,10 +27,4 @@ const getCountryById = async (req: Request, res: Response) => {
   }
 };
 
-const getNigerianStates = (req: Request, res: Response) => {
-  res.json({
-    message: "API/COUNTRIES/NIGERIA/STATES",
-  });
-};
-
-export { getAllCountries, getCountryById, getNigerianStates };
+export { getAllCountries, getCountryByCode };

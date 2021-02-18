@@ -1,19 +1,20 @@
 import express from "express";
+
+import nigeriaRoutes from "./countries/nigeria.routes";
 const router = express.Router();
 
 import {
   getAllCountries,
-  getCountryById,
-  getNigerianStates,
+  getCountryByCode,
 } from "../controllers/countries.controller";
 
 // api/countries
 router.get("/", getAllCountries);
 
 // api/countries/ng
-router.get("/:countryId", getCountryById);
+router.get("/:countryCode", getCountryByCode);
 
 // api/countries/ng/states
-router.get("/ng/states", getNigerianStates);
+router.use("/ng", nigeriaRoutes);
 
 export default router;

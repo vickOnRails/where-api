@@ -3,13 +3,13 @@
 - Setup mongoose collection named whereapis
 - Setup schema for
   - countries ✅
-  - states
-  - lgas
+  - states✅
+  - lgas✅
   - wards
-  - user
+  - user✅
 - Setup country entities
-  - Nigeria
-    - states
+  - Nigeria ✅
+    - states ✅
     - lgas
     - wards
   - Kenya
