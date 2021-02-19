@@ -20,6 +20,8 @@ import {
   createStateLGAs,
   getAllStateLGAs,
   getStateLGAById,
+  deleteStateLGA,
+  editStateLGA,
 } from "../controllers/lga.controller";
 
 // api/admin/countries
@@ -41,14 +43,19 @@ router.delete("/countries/:countryId", deleteCountry);
 router.get("/countries/:countryId/states", getAllNigerianStates);
 router.get("/countries/:countryId/states/:stateId", getNigerianStateById);
 router.post("/countries/:countryId/states", createNigerianState);
-router.delete("/countries/:countryId/states/:stateId", deleteNigerianState);
 router.put("/countries/:countryId/states/:stateId", editNigerianState);
+router.delete("/countries/:countryId/states/:stateId", deleteNigerianState);
 
 router.get("/countries/:countryId/states/:stateId/lgas", getAllStateLGAs);
-router.post("/countries/:countryId/states/:stateId/lgas", createStateLGAs);
 router.get(
   "/countries/:countryId/states/:stateId/lgas/:lgaId",
   getStateLGAById
+);
+router.post("/countries/:countryId/states/:stateId/lgas", createStateLGAs);
+router.put("/countries/:countryId/states/:stateId/lgas/:lgaId", editStateLGA);
+router.delete(
+  "/countries/:countryId/states/:stateId/lgas/:lgaId",
+  deleteStateLGA
 );
 
 export default router;

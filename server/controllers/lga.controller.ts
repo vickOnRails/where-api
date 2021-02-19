@@ -84,4 +84,55 @@ const getStateLGAByCode = async (req: Request, res: Response) => {
   }
 };
 
-export { getAllStateLGAs, createStateLGAs, getStateLGAByCode, getStateLGAById };
+const editStateLGA = async (req: Request, res: Response) => {
+  const { lgaId } = req.params;
+  const newValues = req.body;
+  try {
+    const lga = await LGA.findByIdAndUpdate(lgaId, newValues, { new: true });
+
+    if (!lga) {
+      res.status(404).json({
+        message: "LGA does not exists",
+      });
+    }
+
+    res.json({
+      message: "Updated Successfully",
+      lga,
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: err.message,
+    });
+  }
+};
+
+const deleteStateLGA = async (req: Request, res: Response) => {
+  const { lgaId } = req.params;
+
+  try {
+    const lga = await LGA.findByIdAndDelete(lgaId);
+
+    if (!lga) {
+      res.status(404);
+      throw new Error("LGA does not exist");
+    }
+
+    res.status(200).json({
+      message: "LGA deleted",
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: err.message,
+    });
+  }
+};
+
+export {
+  getAllStateLGAs,
+  createStateLGAs,
+  getStateLGAByCode,
+  getStateLGAById,
+  editStateLGA,
+  deleteStateLGA,
+};
