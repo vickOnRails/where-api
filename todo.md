@@ -32,5 +32,6 @@
 - Effective type every entity with Typescript✅
 - combine all related-functionality into a single controller ✅
 - Implement app wide error handlers
-- Setup postman
-- Switch back to guid for identifying resources
+- Setup postman ✅
+- Switch back to guid for identifying resources ✅
+- Implement extra checks to entities and parent entities, for create, edit, update and delete operations

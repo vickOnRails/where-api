@@ -1,11 +1,16 @@
 import mongoose from "mongoose";
 import { Request, Response } from "express";
-import { Document } from "mongoose";
 
 import State from "../models/state.model";
 import Country from "../models/country.model";
-import { ICountry, IState } from "../types";
 
+/**
+ * Create Nigerian State
+ *
+ * @param {Request} req - Request object
+ * @param {Response} res - Response object
+ * @returns Newly created state
+ */
 const createNigerianState = async (req: Request, res: Response) => {
   const { name, code, description } = req.body;
   const { countryId } = req.params;
@@ -42,6 +47,13 @@ const createNigerianState = async (req: Request, res: Response) => {
   }
 };
 
+/**
+ * Get All Nigerian States
+ *
+ * @param {Request} req - Request object
+ * @param {Response} res - Response object
+ * @returns Array of states in Nigeria
+ */
 const getAllNigerianStates = async (req: Request, res: Response) => {
   const { countryId } = req.params;
 
@@ -66,6 +78,13 @@ const getAllNigerianStates = async (req: Request, res: Response) => {
   }
 };
 
+/**
+ * Get Nigerian State that matches the given Id
+ *
+ * @param {Request} req - Request object
+ * @param {Response} res - Response object
+ * @returns Array of Nigeria states
+ */
 const getNigerianStateById = async (req: Request, res: Response) => {
   const { stateId } = req.params;
   try {
@@ -103,6 +122,13 @@ const getNigerianStateById = async (req: Request, res: Response) => {
 //   }
 // };
 
+/**
+ * Deletes a Nigerian State
+ *
+ * @param {Request} req - Request object
+ * @param {Response} res - Response object
+ * @returns Deleted State
+ */
 const deleteNigerianState = async (req: Request, res: Response) => {
   const { stateId } = req.params;
 
@@ -125,6 +151,13 @@ const deleteNigerianState = async (req: Request, res: Response) => {
   }
 };
 
+/**
+ * Edit Nigerian State
+ *
+ * @param {Request} req - Request object
+ * @param {Response} res - Response object
+ * @returns Newly edited state
+ */
 const editNigerianState = async (req: Request, res: Response) => {
   const { stateId } = req.params;
   const newValues = req.body;
