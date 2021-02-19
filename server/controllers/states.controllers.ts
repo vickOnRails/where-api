@@ -104,9 +104,58 @@ const getNigerianStateByCode = async (req: Request, res: Response) => {
   }
 };
 
+const deleteNigerianState = async (req: Request, res: Response) => {
+  const { stateId } = req.params;
+
+  try {
+    const state = await State.findById(stateId);
+
+    if (!state) {
+      res.status(404);
+      throw new Error("State does not exist");
+    }
+
+    res.status(200).json({
+      message: "Deleted successfully",
+    });
+    await state.remove();
+  } catch (err) {
+    res.json({
+      message: err.message,
+    });
+  }
+};
+
+const editNigerianState = async (req: Request, res: Response) => {
+  const { stateId } = req.params;
+  const newValues = req.body;
+
+  try {
+    const updatedState = await State.findByIdAndUpdate(stateId, newValues, {
+      new: true,
+    });
+
+    if (!updatedState) {
+      res.status(404);
+      throw new Error("This state does not exist");
+    }
+
+    res.status(200).json({
+      message: "State updated",
+      updatedState: updatedState,
+    });
+  } catch (err) {
+    res.json({
+      message: err.message,
+    });
+  }
+};
+
 export {
   createNigerianState,
   getAllNigerianStates,
   getNigerianStateById,
   getNigerianStateByCode,
+  deleteNigerianState,
+  editNigerianState,
 };

@@ -5,6 +5,8 @@ import {
   createNigerianState,
   getNigerianStateById,
   getAllNigerianStates,
+  deleteNigerianState,
+  editNigerianState,
 } from "../controllers/states.controllers";
 
 import {
@@ -37,8 +39,11 @@ router.delete("/countries/:countryId", deleteCountry);
 
 // statesId
 router.get("/countries/:countryId/states", getAllNigerianStates);
-router.post("/countries/:countryId/states", createNigerianState);
 router.get("/countries/:countryId/states/:stateId", getNigerianStateById);
+router.post("/countries/:countryId/states", createNigerianState);
+router.delete("/countries/:countryId/states/:stateId", deleteNigerianState);
+router.put("/countries/:countryId/states/:stateId", editNigerianState);
+
 router.get("/countries/:countryId/states/:stateId/lgas", getAllStateLGAs);
 router.post("/countries/:countryId/states/:stateId/lgas", createStateLGAs);
 router.get(

@@ -10,7 +10,7 @@
 - Setup country entities
   - Nigeria ✅
     - states ✅
-    - lgas
+    - lgas✅
     - wards
   - Kenya
     - Counties
