@@ -29,3 +29,5 @@
   - Kenya
   - South Africa
   - Ethiopia
+- Effective type every entity with Typescript✅
+- combine all related-functionality into a single controller ✅

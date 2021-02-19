@@ -2,13 +2,18 @@ import express from "express";
 const router = express.Router();
 
 import {
-  getAllCountries,
-  getCountryById,
+  createNigerianState,
+  getNigerianStateById,
+  getAllNigerianStates,
+} from "../controllers/states.controllers";
+
+import {
   createCountry,
   deleteCountry,
   editCountry,
-} from "../controllers/admin/countries.controller";
-import { createNigerianState } from "../controllers/admin/states.controllers";
+  getAllCountries,
+  getCountryById,
+} from "../controllers/countries.controller";
 
 // api/admin/countries
 router.get("/countries", getAllCountries);
@@ -26,8 +31,8 @@ router.put("/countries/:countryId", editCountry);
 router.delete("/countries/:countryId", deleteCountry);
 
 // statesId
-// ------------------------
-
-router.post("/countries/ng/states", createNigerianState);
+router.get("/countries/:countryId/states", getAllNigerianStates);
+router.post("/countries/:countryId/states", createNigerianState);
+router.get("/countries/:countryId/states/:stateId", getNigerianStateById);
 
 export default router;
