@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { IState } from "../types";
 
 const stateSchema = new mongoose.Schema(
   {
@@ -35,6 +36,6 @@ const stateSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const State = mongoose.model("State", stateSchema);
+const State = mongoose.model<IState>("State", stateSchema);
 
 export default State;

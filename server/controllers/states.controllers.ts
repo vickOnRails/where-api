@@ -11,7 +11,7 @@ const createNigerianState = async (req: Request, res: Response) => {
   const countryId = req.body.country;
 
   // first confirm the country with the id exists
-  const country: any = await Country.findById(countryId);
+  const country = await Country.findById(countryId);
 
   if (!country)
     return res
@@ -46,7 +46,7 @@ const getAllNigerianStates = async (req: Request, res: Response) => {
   const NIGERIA_CODE = "ng";
 
   // Ensure Nigeria exists
-  const nigeria: Document<ICountry> | null = await Country.findOne({
+  const nigeria = await Country.findOne({
     code: NIGERIA_CODE,
   }).exec();
 
@@ -56,7 +56,7 @@ const getAllNigerianStates = async (req: Request, res: Response) => {
     });
 
   try {
-    const states: Document<IState>[] = await State.find({
+    const states = await State.find({
       countryCode: NIGERIA_CODE,
     });
 

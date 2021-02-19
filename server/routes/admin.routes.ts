@@ -14,6 +14,11 @@ import {
   getAllCountries,
   getCountryById,
 } from "../controllers/countries.controller";
+import {
+  createStateLGAs,
+  getAllStateLGAs,
+  getStateLGAById,
+} from "../controllers/lga.controller";
 
 // api/admin/countries
 router.get("/countries", getAllCountries);
@@ -34,5 +39,11 @@ router.delete("/countries/:countryId", deleteCountry);
 router.get("/countries/:countryId/states", getAllNigerianStates);
 router.post("/countries/:countryId/states", createNigerianState);
 router.get("/countries/:countryId/states/:stateId", getNigerianStateById);
+router.get("/countries/:countryId/states/:stateId/lgas", getAllStateLGAs);
+router.post("/countries/:countryId/states/:stateId/lgas", createStateLGAs);
+router.get(
+  "/countries/:countryId/states/:stateId/lgas/:lgaId",
+  getStateLGAById
+);
 
 export default router;

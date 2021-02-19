@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { ICountry } from "../types";
 
 const countrySchema = new mongoose.Schema(
   {
@@ -20,6 +21,6 @@ const countrySchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const Country = mongoose.model("Country", countrySchema);
+const Country = mongoose.model<ICountry>("Country", countrySchema);
 
 export default Country;

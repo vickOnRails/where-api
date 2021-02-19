@@ -1,4 +1,5 @@
-import mongoose from "mongoose";
+import mongoose, { Model, Document } from "mongoose";
+import { ILGA } from "../types";
 
 const lgaSchema = new mongoose.Schema(
   {
@@ -23,10 +24,6 @@ const lgaSchema = new mongoose.Schema(
       ref: "State",
       required: true,
     },
-    stateName: {
-      type: String,
-      required: true,
-    },
     stateCode: {
       type: String,
       required: true,
@@ -34,10 +31,6 @@ const lgaSchema = new mongoose.Schema(
     country: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Country",
-      required: true,
-    },
-    countryName: {
-      type: String,
       required: true,
     },
     countryCode: {
@@ -48,6 +41,6 @@ const lgaSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const Lga = mongoose.model("Lga", lgaSchema);
+const LGA = mongoose.model<ILGA>("Lga", lgaSchema);
 
-export default Lga;
+export default LGA;

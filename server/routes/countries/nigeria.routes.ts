@@ -1,13 +1,14 @@
 import express from "express";
 
-import State from "../../models/state.model";
-
 import {
   getAllNigerianStates,
   getNigerianStateByCode,
-  getNigerianStateById,
 } from "../../controllers/states.controllers";
-import { getAllStateLGAs } from "../../controllers/lga.controller";
+import {
+  getAllStateLGAs,
+  getStateLGAByCode,
+  getStateLGAById,
+} from "../../controllers/lga.controller";
 
 const router = express.Router();
 
@@ -17,10 +18,7 @@ router.get("/states/:stateCode", getNigerianStateByCode);
 
 router.get("/states/:statesId/lgas", getAllStateLGAs);
 
-router.get("/states/:statesId/lgas/:lgaId", (req, res) => {
-  res.json({
-    message: "Gimme the Ginger LGA",
-  });
-});
+router.get("/states/:statesId/lgas/:lgaCode", getStateLGAByCode);
+router.get("/states/:statesId/lgas/:lgaId", getStateLGAById);
 
 export default router;
