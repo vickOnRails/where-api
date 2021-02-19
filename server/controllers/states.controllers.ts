@@ -43,21 +43,19 @@ const createNigerianState = async (req: Request, res: Response) => {
 };
 
 const getAllNigerianStates = async (req: Request, res: Response) => {
-  const NIGERIA_CODE = "ng";
+  const { countryId } = req.params;
 
   // Ensure Nigeria exists
-  const nigeria = await Country.findOne({
-    code: NIGERIA_CODE,
-  }).exec();
+  const country = await Country.findById(countryId);
 
-  if (!nigeria)
+  if (!country)
     return res.status(404).json({
       message: "This country does not exist",
     });
 
   try {
     const states = await State.find({
-      countryCode: NIGERIA_CODE,
+      country: country._id,
     });
 
     res.json(states);
@@ -86,23 +84,24 @@ const getNigerianStateById = async (req: Request, res: Response) => {
   }
 };
 
-const getNigerianStateByCode = async (req: Request, res: Response) => {
-  const { stateCode } = req.params;
-  try {
-    const state = await State.findOne({ code: stateCode });
+// Remove this because it will be taken care of in the querystring
+// const getNigerianStateByCode = async (req: Request, res: Response) => {
+//   const { stateCode } = req.params;
+//   try {
+//     const state = await State.findOne({ code: stateCode });
 
-    if (!state)
-      return res.status(404).json({
-        message: "State does not exist",
-      });
+//     if (!state)
+//       return res.status(404).json({
+//         message: "State does not exist",
+//       });
 
-    res.json(state);
-  } catch (err) {
-    res.status(404).json({
-      message: err.message,
-    });
-  }
-};
+//     res.json(state);
+//   } catch (err) {
+//     res.status(404).json({
+//       message: err.message,
+//     });
+//   }
+// };
 
 const deleteNigerianState = async (req: Request, res: Response) => {
   const { stateId } = req.params;
@@ -155,7 +154,6 @@ export {
   createNigerianState,
   getAllNigerianStates,
   getNigerianStateById,
-  getNigerianStateByCode,
   deleteNigerianState,
   editNigerianState,
 };

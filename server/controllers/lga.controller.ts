@@ -8,6 +8,7 @@ const getStateLGAs = async (req: Request, res: Response) => {
   const { stateId } = req.params;
 
   try {
+    // First ensure country exists
     const lgas = await LGA.find({ state: stateId });
 
     res.json(lgas);

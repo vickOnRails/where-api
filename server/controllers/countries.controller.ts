@@ -9,25 +9,26 @@ const getAllCountries = async (req: Request, res: Response) => {
   res.json(countries);
 };
 
-const getCountryByCode = async (req: Request, res: Response) => {
-  const { countryCode } = req.params;
+// Removed country code because we hand over this functionality to querystrings
+// const getCountryByCode = async (req: Request, res: Response) => {
+//   const { countryCode } = req.params;
 
-  try {
-    const country = await Country.findOne({ code: countryCode });
+//   try {
+//     const country = await Country.findOne({ code: countryCode });
 
-    if (!country) {
-      return res.status(404).json({
-        message: "This country does not exist",
-      });
-    }
+//     if (!country) {
+//       return res.status(404).json({
+//         message: "This country does not exist",
+//       });
+//     }
 
-    res.json(country);
-  } catch (err) {
-    res.status(500).json({
-      message: err.message,
-    });
-  }
-};
+//     res.json(country);
+//   } catch (err) {
+//     res.status(500).json({
+//       message: err.message,
+//     });
+//   }
+// };
 
 // api/admin/countries
 const createCountry = async (req: Request, res: Response) => {
@@ -130,5 +131,4 @@ export {
   createCountry,
   deleteCountry,
   editCountry,
-  getCountryByCode,
 };
