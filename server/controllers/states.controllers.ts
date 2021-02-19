@@ -8,7 +8,7 @@ import { ICountry, IState } from "../types";
 
 const createNigerianState = async (req: Request, res: Response) => {
   const { name, code, description } = req.body;
-  const countryId = req.body.country;
+  const { countryId } = req.params;
 
   // first confirm the country with the id exists
   const country = await Country.findById(countryId);

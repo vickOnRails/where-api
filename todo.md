@@ -31,3 +31,6 @@
   - Ethiopia
 - Effective type every entity with Typescript✅
 - combine all related-functionality into a single controller ✅
+- Implement app wide error handlers
+- Setup postman
+- Switch back to guid for identifying resources

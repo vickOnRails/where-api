@@ -13,7 +13,7 @@ const getCountryByCode = async (req: Request, res: Response) => {
   const { countryCode } = req.params;
 
   try {
-    const country = await Country.find({ code: countryCode });
+    const country = await Country.findOne({ code: countryCode });
 
     if (!country) {
       return res.status(404).json({

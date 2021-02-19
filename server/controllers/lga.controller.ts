@@ -4,9 +4,11 @@ import mongoose, { Document, Model } from "mongoose";
 import LGA from "../models/lga.model";
 import { ILGA } from "../types";
 
-const getAllStateLGAs = async (req: Request, res: Response) => {
+const getStateLGAs = async (req: Request, res: Response) => {
+  const { stateId } = req.params;
+
   try {
-    const lgas = await LGA.find();
+    const lgas = await LGA.find({ state: stateId });
 
     res.json(lgas);
   } catch (err) {
@@ -68,6 +70,8 @@ const getStateLGAById = async (req: Request, res: Response) => {
 
 const getStateLGAByCode = async (req: Request, res: Response) => {
   const { lgaCode } = req.params;
+
+  // First confirm the state exists
   try {
     const lga = await LGA.findOne({ code: lgaCode });
 
@@ -86,6 +90,7 @@ const getStateLGAByCode = async (req: Request, res: Response) => {
 
 const editStateLGA = async (req: Request, res: Response) => {
   const { lgaId } = req.params;
+  // First confirm the state exists
   const newValues = req.body;
   try {
     const lga = await LGA.findByIdAndUpdate(lgaId, newValues, { new: true });
@@ -129,7 +134,7 @@ const deleteStateLGA = async (req: Request, res: Response) => {
 };
 
 export {
-  getAllStateLGAs,
+  getStateLGAs,
   createStateLGAs,
   getStateLGAByCode,
   getStateLGAById,

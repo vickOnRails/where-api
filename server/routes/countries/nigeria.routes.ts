@@ -5,7 +5,7 @@ import {
   getNigerianStateByCode,
 } from "../../controllers/states.controllers";
 import {
-  getAllStateLGAs,
+  getStateLGAs,
   getStateLGAByCode,
   getStateLGAById,
 } from "../../controllers/lga.controller";
@@ -16,7 +16,7 @@ router.get("/states", getAllNigerianStates);
 
 router.get("/states/:stateCode", getNigerianStateByCode);
 
-router.get("/states/:statesId/lgas", getAllStateLGAs);
+router.get("/states/:statesId/lgas", getStateLGAs);
 
 router.get("/states/:statesId/lgas/:lgaCode", getStateLGAByCode);
 router.get("/states/:statesId/lgas/:lgaId", getStateLGAById);
