@@ -2,7 +2,10 @@ import express from "express";
 
 const router = express.Router();
 
-import { getAllCountries } from "../controllers/countries.controller";
+import {
+  getAllCountries,
+  getCountryById,
+} from "../controllers/countries.controller";
 import {
   getAllNigerianStates,
   getNigerianStateById,
@@ -11,6 +14,11 @@ import { getStateLGAById, getStateLGAs } from "../controllers/lga.controller";
 
 // api/countries
 router.get("/", getAllCountries);
+
+router.get("/:countryId", getCountryById);
+
+// ----------------------------------------------------------------------- //
+// These are all Nigerian routes for states, LGAs etc
 
 // Get All Nigerian States
 // api/countries/:countryId/states

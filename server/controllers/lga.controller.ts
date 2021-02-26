@@ -2,8 +2,14 @@ import { Request, Response } from "express";
 import mongoose, { Document, Model } from "mongoose";
 
 import LGA from "../models/lga.model";
-import { ILGA } from "../types";
 
+/**
+ * Get States LGA
+ *
+ * @param {Request} req - Request object
+ * @param {Response} res - Response object
+ * @returns Array of LGAs
+ */
 const getStateLGAs = async (req: Request, res: Response) => {
   const { stateId } = req.params;
 

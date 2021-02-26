@@ -59,6 +59,9 @@ const getCountryById = async (req: Request, res: Response) => {
 
   try {
     const country = await Country.findById(countryId);
+    // .select(
+    //   "_id name description code"
+    // );
     if (!country) {
       return res.status(404).json({
         message: "This country does not exist",
