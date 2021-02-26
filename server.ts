@@ -12,6 +12,8 @@ import authRoutes from "./routes/auth.routes";
 // Set configuration to allow parsing of .env variables
 dotenv.config();
 
+const PORT = process.env.PORT || 5000;
+
 // start express app
 const app = express();
 
@@ -34,6 +36,6 @@ app.use("/api/admin", adminRoutes);
 // Handle all countries related functionality
 app.use("/api/countries", countriesRoutes);
 
-app.listen(5000, () => {
-  console.log(`Listening at port 5000`);
+app.listen(PORT, () => {
+  console.log(`Listening at port ${PORT}`);
 });
