@@ -35,3 +35,4 @@
 - Setup postman ✅
 - Switch back to guid for identifying resources ✅
 - Implement extra checks to entities and parent entities, for create, edit, update and delete operations
+- Robust error handling for endpoints

@@ -2,8 +2,11 @@
   "name": "whereapis",
   "version": "1.0.0",
   "description": "",
+  "main": "dist/server.js",
   "scripts": {
-    "start:server": "nodemon --exec ts-node ./server.ts"
+    "start:server": "nodemon --exec ts-node ./server.ts",
+    "start": "node dist/server.js",
+    "postinstall": "tsc"
   },
   "author": "",
   "license": "ISC",
