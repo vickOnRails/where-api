@@ -10,6 +10,7 @@ import indexRoutes from "./routes";
 import authRoutes from "./routes/auth.routes";
 import { protect } from "./middleware/protect";
 import { authorizeAdmin } from "./middleware/authorize-admin";
+import { validateAPIKey } from "./middleware/validate-api-key";
 
 // Set configuration to allow parsing of .env variables
 dotenv.config();
@@ -36,7 +37,10 @@ app.use("/api/auth", authRoutes);
 app.use("/api/admin", protect, authorizeAdmin, adminRoutes);
 
 // Handle all countries related functionality
-app.use("/api/countries", protect, countriesRoutes);
+// We don't really need the protect middleware here since this particular requests to the server do not make use of JWT, but apikeys
+// app.use("/api/countries", protect, countriesRoutes);
+
+app.use("/api/countries", validateAPIKey, countriesRoutes);
 
 app.listen(PORT, () => {
   console.log(`Listening at port ${PORT}`);
