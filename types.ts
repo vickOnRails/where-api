@@ -21,11 +21,13 @@ export interface IState extends Document {
 export interface IUser extends Document {
   _id: string;
   email: string;
-  hashedPassword: string;
+  password: string;
+  username: string;
   salt: string;
   isAdmin: boolean;
   createdAt: Date;
   updatedAt: Date;
+  matchPassword: (rawPassword: string) => boolean;
 }
 export interface ILGA extends Document {
   _id: string;
