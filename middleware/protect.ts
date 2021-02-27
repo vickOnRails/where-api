@@ -3,6 +3,12 @@ import { NextFunction, Response, Request } from "express";
 
 import User from "../models/user.model";
 
+/**
+ *  Acts as a filter for requests without the jwt token
+ * @param {Request} req
+ * @param {Response} res
+ * @param {NextFunction} next
+ */
 export const protect = async (
   req: Request,
   res: Response,
@@ -16,7 +22,7 @@ export const protect = async (
       const decoded = jwt.verify(jwtoken.split(" ")[1], tokenSecret);
 
       // @ts-ignore
-      res.user = await User.findById(decoded.id).select(
+      req.user = await User.findById(decoded.id).select(
         "isAdmin _id email username"
       );
 

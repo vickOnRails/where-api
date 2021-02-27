@@ -9,6 +9,7 @@ import adminRoutes from "./routes/admin.routes";
 import indexRoutes from "./routes";
 import authRoutes from "./routes/auth.routes";
 import { protect } from "./middleware/protect";
+import { authorizeAdmin } from "./middleware/authorize-admin";
 
 // Set configuration to allow parsing of .env variables
 dotenv.config();
@@ -32,7 +33,7 @@ app.use("/api", indexRoutes);
 app.use("/api/auth", authRoutes);
 
 // Handle All admin related operations
-app.use("/api/admin", protect, adminRoutes);
+app.use("/api/admin", protect, authorizeAdmin, adminRoutes);
 
 // Handle all countries related functionality
 app.use("/api/countries", protect, countriesRoutes);
