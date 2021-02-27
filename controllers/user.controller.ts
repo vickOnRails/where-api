@@ -1,3 +1,4 @@
+import { json } from "body-parser";
 import { Request, Response } from "express";
 import mongoose from "mongoose";
 
@@ -36,6 +37,7 @@ const RegisterUser = async (req: Request, res: Response) => {
   } catch (err) {
     res.json({
       message: err.message,
+      stack: err.stack,
     });
   }
 };
@@ -75,4 +77,49 @@ const SignUserIn = async (req: Request, res: Response) => {
   }
 };
 
-export { RegisterUser, SignUserIn };
+/***
+ * Generate API Token for user
+ * @param {Request} req
+ * @param {Response} res
+ */
+const generateAPIToken = async (req: Request, res: Response) => {
+  // @ts-ignore
+  const user = await User.findById(req.user.id);
+
+  try {
+    if (!user) {
+      res.status(404);
+      throw new Error("User does not exist");
+    }
+
+    if (user.apiKey) {
+      res.status(200);
+      return res.json({
+        message: "API key already generated",
+        apiKey: user.apiKey,
+      });
+    }
+
+    const apiKey = (mongoose.Types.ObjectId() as unknown) as string;
+    const date = new Date();
+    const count = 0;
+
+    const usage = {
+      date,
+      count,
+    };
+
+    await User.updateOne({ _id: user.id }, { apiKey: apiKey, usage });
+
+    res.send({
+      message: "API key generated",
+      apiKey,
+    });
+  } catch (err) {
+    res.json({
+      message: err.message,
+    });
+  }
+};
+
+export { RegisterUser, SignUserIn, generateAPIToken };

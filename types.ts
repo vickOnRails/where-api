@@ -25,6 +25,11 @@ export interface IUser extends Document {
   username: string;
   salt: string;
   isAdmin: boolean;
+  apiKey: string;
+  usage: {
+    date: Date;
+    count: number;
+  };
   createdAt: Date;
   updatedAt: Date;
   matchPassword: (rawPassword: string) => boolean;

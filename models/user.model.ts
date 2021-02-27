@@ -29,6 +29,15 @@ const userSchema = new mongoose.Schema<IUser>(
     salt: {
       type: String,
     },
+    apiKey: {
+      type: mongoose.Schema.Types.ObjectId,
+      unique: true,
+      sparse: true,
+    },
+    usage: {
+      date: Date,
+      count: Number,
+    },
     isAdmin: {
       type: Boolean,
       default: false,
