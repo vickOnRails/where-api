@@ -8,6 +8,7 @@ import countriesRoutes from "./routes/countries.routes";
 import adminRoutes from "./routes/admin.routes";
 import indexRoutes from "./routes";
 import authRoutes from "./routes/auth.routes";
+import { protect } from "./middleware/protect";
 
 // Set configuration to allow parsing of .env variables
 dotenv.config();
@@ -31,10 +32,10 @@ app.use("/api", indexRoutes);
 app.use("/api/auth", authRoutes);
 
 // Handle All admin related operations
-app.use("/api/admin", adminRoutes);
+app.use("/api/admin", protect, adminRoutes);
 
 // Handle all countries related functionality
-app.use("/api/countries", countriesRoutes);
+app.use("/api/countries", protect, countriesRoutes);
 
 app.listen(PORT, () => {
   console.log(`Listening at port ${PORT}`);

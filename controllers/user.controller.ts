@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import mongoose from "mongoose";
 
 import User from "../models/user.model";
+import { generateJWT } from "../util/generateJWT";
 
 /***
  * Register user to system
@@ -64,6 +65,7 @@ const SignUserIn = async (req: Request, res: Response) => {
         _id: userExists._id,
         email: userExists.email,
         username: userExists.username,
+        jwt: generateJWT({ id: userExists._id }),
       },
     });
   } catch (err) {
