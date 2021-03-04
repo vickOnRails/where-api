@@ -1,10 +1,11 @@
 import { Request, Response } from "express";
 import mongoose from "mongoose";
-import bcrypt from "bcrypt";
 
 import { prisma } from "../server";
 import { generateJWT } from "../util/generateJWT";
 import { IUser } from "../types";
+import { encryptPassword } from "../util/encryptPassword";
+import { matchPassword } from "../util/matchPassword";
 
 /***
  * Register user to system
@@ -25,16 +26,6 @@ export const RegisterUser = async (req: Request, res: Response) => {
       email: email,
     },
   });
-
-  // FIXME: Remove this user entirely
-  const encryptPassword = async (password: string) => {
-    if (!password) throw new Error("Please provide a password");
-
-    let salt: string = await bcrypt.genSalt();
-    let hashedPassword: string = await bcrypt.hash(password, salt);
-
-    return { hashedPassword, salt };
-  };
 
   try {
     if (userExists) {
@@ -85,15 +76,6 @@ export const SignUserIn = async (req: Request, res: Response) => {
       email,
     },
   });
-
-  // FIXME: Use appropriate types here
-  const matchPassword = async (password: string, user: any) => {
-    try {
-      return await bcrypt.compare(password, user.password);
-    } catch (err) {
-      throw new Error(err.message);
-    }
-  };
 
   try {
     // Return error if user does not exist or passwords do not match
