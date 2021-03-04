@@ -26,7 +26,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // connect to database
-connectDB();
+// connectDB();
 
 export const prisma = new PrismaClient();
 

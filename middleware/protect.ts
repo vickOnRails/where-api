@@ -28,9 +28,6 @@ export const protect = async (
         },
       });
 
-      //@ts-ignore
-      console.log(req.user);
-
       next();
     } catch (err) {
       res.status(401);

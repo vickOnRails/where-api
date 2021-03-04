@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import mongoose from "mongoose";
 
+import { v4 as uuidv4 } from "uuid";
 import { prisma } from "../server";
 import { generateJWT } from "../util/generateJWT";
 import { IUser } from "../types";
@@ -128,16 +128,19 @@ export const generateAPIToken = async (req: Request, res: Response) => {
       });
     }
 
-    const apiKey = (mongoose.Types.ObjectId() as unknown) as string;
+    const apiKey = uuidv4();
+
+    console.log(apiKey);
+
     const date = new Date();
     const count = 0;
 
-    prisma.user.update({
+    await prisma.user.update({
       where: {
         id: user.id,
       },
       data: {
-        apiKey,
+        apiKey: apiKey,
         apiGenerationDate: date,
         apiDailyCount: count,
       },
@@ -215,6 +218,28 @@ export const MakeAdmin = async (req: Request, res: Response) => {
     res.status(200).json({
       message: "User set as admin",
     });
+  } catch (err) {
+    res.status(500).json({
+      message: err.message,
+    });
+  }
+};
+
+export const GetAllUsers = async (req: Request, res: Response) => {
+  try {
+    const users = await prisma.user.findMany({
+      select: {
+        id: true,
+        fullname: true,
+        email: true,
+        apiDailyCount: true,
+        apiKey: true,
+        apiGenerationDate: true,
+        isAdmin: true,
+      },
+    });
+
+    res.status(200).json({ users });
   } catch (err) {
     res.status(500).json({
       message: err.message,
