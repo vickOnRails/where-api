@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from "express";
-import { IUser } from "../types";
 
 export const authorizeAdmin = async (
   req: Request,

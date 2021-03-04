@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import { NextFunction, Response, Request } from "express";
-
-import User from "../models/user.model";
+import { prisma } from "../server";
+import { IUser } from "../types";
 
 /**
  *  Acts as a filter for requests without the jwt token
@@ -19,12 +19,17 @@ export const protect = async (
 
   if (jwtoken && jwtoken.startsWith("Bearer")) {
     try {
-      const decoded = jwt.verify(jwtoken.split(" ")[1], tokenSecret);
+      const decoded = jwt.verify(jwtoken.split(" ")[1], tokenSecret) as IUser;
 
-      // @ts-ignore
-      req.user = await User.findById(decoded.id).select(
-        "isAdmin _id email username"
-      );
+      //@ts-ignore
+      req.user = await prisma.user.findUnique({
+        where: {
+          id: decoded.id,
+        },
+      });
+
+      //@ts-ignore
+      console.log(req.user);
 
       next();
     } catch (err) {

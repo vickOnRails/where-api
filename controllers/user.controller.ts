@@ -1,9 +1,7 @@
-import { json } from "body-parser";
 import { Request, Response } from "express";
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 
-import User from "../models/user.model";
 import { prisma } from "../server";
 import { generateJWT } from "../util/generateJWT";
 import { IUser } from "../types";
@@ -14,7 +12,7 @@ import { IUser } from "../types";
  * @param {Response} res
  */
 
-const RegisterUser = async (req: Request, res: Response) => {
+export const RegisterUser = async (req: Request, res: Response) => {
   const { email, password, fullname } = req.body;
 
   if (email === null || password === null || fullname === null)
@@ -75,7 +73,7 @@ const RegisterUser = async (req: Request, res: Response) => {
  * @param {Request} req
  * @param {Response} res
  */
-const SignUserIn = async (req: Request, res: Response) => {
+export const SignUserIn = async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
   // const userExists = await User.findOne({ email }).select(
@@ -125,11 +123,16 @@ const SignUserIn = async (req: Request, res: Response) => {
  * @param {Request} req
  * @param {Response} res
  */
-const generateAPIToken = async (req: Request, res: Response) => {
-  // @ts-ignore
-  const user = await User.findById(req.user.id);
+export const generateAPIToken = async (req: Request, res: Response) => {
+  //@ts-ignore
+  const userId = req.user.id;
 
   try {
+    const user = await prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+    });
     if (!user) {
       res.status(404);
       throw new Error("User does not exist");
@@ -147,12 +150,16 @@ const generateAPIToken = async (req: Request, res: Response) => {
     const date = new Date();
     const count = 0;
 
-    const usage = {
-      date,
-      count,
-    };
-
-    await User.updateOne({ _id: user.id }, { apiKey: apiKey, usage });
+    prisma.user.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        apiKey,
+        apiGenerationDate: date,
+        apiDailyCount: count,
+      },
+    });
 
     res.send({
       message: "API key generated",
@@ -196,4 +203,39 @@ export const DeleteUser = async (req: Request, res: Response) => {
   }
 };
 
-export { RegisterUser, SignUserIn, generateAPIToken };
+export const MakeAdmin = async (req: Request, res: Response) => {
+  const { userId } = req.params;
+  const { isAdmin } = req.body;
+
+  // confirm if user exists
+  const user = await prisma.user.findUnique({
+    where: {
+      id: userId,
+    },
+  });
+
+  if (!user)
+    res.status(401).json({
+      message: "User does not exist",
+    });
+
+  try {
+    // Make admin
+    await prisma.user.update({
+      where: {
+        id: user?.id,
+      },
+      data: {
+        isAdmin,
+      },
+    });
+
+    res.status(200).json({
+      message: "User set as admin",
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: err.message,
+    });
+  }
+};
