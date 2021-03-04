@@ -1,0 +1,67 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+// model countries {
+//   id          String? @default(dbgenerated("uuid_generate_v4()")) @map("_id") @db.Uuid
+//   name        String  @db.VarChar
+//   description String  @db.VarChar
+//   code        String  @db.VarChar
+
+//   @@ignore
+// }
+
+model Country {
+  id String @default(uuid()) @unique @id
+  name String
+  description String?
+  code String @unique
+  states State[]
+  lgas LGA[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model LGA {
+  id String @default(uuid()) @unique @id
+  name String
+  code String @unique
+  description String
+  country Country @relation(fields: [countryId], references: [id])
+  countryId String
+  state State @relation(fields: [stateId], references: [id])
+  stateId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model State {
+  id String @default(uuid()) @unique @id
+  lgas LGA[]
+  code String @unique
+  description String?
+  country Country @relation(fields: [countryId], references: [id])
+  countryId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model User {
+  id String @default(uuid()) @unique @id
+  fullname String
+  email String
+  password String
+  Salt String
+  apiKey String @unique
+  apiGenerationDate DateTime
+  apiDailyCount Int @default(0)
+  isAdmin Boolean @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
