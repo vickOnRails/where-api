@@ -1,7 +1,4 @@
 import { Request, Response } from "express";
-import mongoose, { Document, Model } from "mongoose";
-
-import LGA from "../models/lga.model";
 
 import { prisma } from "../server";
 
@@ -28,32 +25,30 @@ const getStateLGAs = async (req: Request, res: Response) => {
 };
 
 const createStateLGAs = async (req: Request, res: Response) => {
-  const {
-    name,
-    code,
-    description,
-    stateCode,
-    country,
-    state,
-    countryCode,
-  } = req.body;
+  const { name, code, description, stateId, countryId } = req.body;
 
   try {
-    const lgaToCreate = new LGA({
-      _id: mongoose.Types.ObjectId(),
-      name,
-      code,
-      description,
-      stateCode,
-      country,
-      state,
-      countryCode,
+    const lgaToCreate = await prisma.lGA.create({
+      data: {
+        name,
+        code,
+        description,
+        country: {
+          connect: {
+            id: countryId,
+          },
+        },
+        state: {
+          connect: {
+            id: stateId,
+          },
+        },
+      },
     });
 
-    const newLGA = await lgaToCreate.save();
-
-    res.status(200).json(newLGA);
+    res.status(200).json(lgaToCreate);
   } catch (err) {
+    console.log(err);
     res.status(500).json({
       message: err.message,
     });
@@ -63,7 +58,7 @@ const createStateLGAs = async (req: Request, res: Response) => {
 const getStateLGAById = async (req: Request, res: Response) => {
   const { lgaId } = req.params;
   try {
-    const lga = await LGA.findById(lgaId);
+    const lga = await prisma.lGA.findUnique({ where: { id: lgaId } });
     if (!lga) {
       res.status(404).json({
         message: "LGA does not exists",
@@ -82,7 +77,11 @@ const getStateLGAByCode = async (req: Request, res: Response) => {
 
   // First confirm the state exists
   try {
-    const lga = await LGA.findOne({ code: lgaCode });
+    const lga = await prisma.lGA.findUnique({
+      where: {
+        code: lgaCode,
+      },
+    });
 
     if (!lga) {
       res.status(404).json({
@@ -102,7 +101,11 @@ const editStateLGA = async (req: Request, res: Response) => {
   // First confirm the state exists
   const newValues = req.body;
   try {
-    const lga = await LGA.findByIdAndUpdate(lgaId, newValues, { new: true });
+    const lga = await prisma.lGA.findUnique({
+      where: {
+        id: lgaId,
+      },
+    });
 
     if (!lga) {
       res.status(404).json({
@@ -110,9 +113,18 @@ const editStateLGA = async (req: Request, res: Response) => {
       });
     }
 
+    const updatedLGA = await prisma.lGA.update({
+      where: {
+        id: lgaId,
+      },
+      data: {
+        ...newValues,
+      },
+    });
+
     res.json({
       message: "Updated Successfully",
-      lga,
+      updatedLGA,
     });
   } catch (err) {
     res.status(500).json({
@@ -125,12 +137,18 @@ const deleteStateLGA = async (req: Request, res: Response) => {
   const { lgaId } = req.params;
 
   try {
-    const lga = await LGA.findByIdAndDelete(lgaId);
+    const lga = await prisma.lGA.findUnique({
+      where: {
+        id: lgaId,
+      },
+    });
 
     if (!lga) {
       res.status(404);
       throw new Error("LGA does not exist");
     }
+
+    await prisma.lGA.delete({ where: { id: lga.id } });
 
     res.status(200).json({
       message: "LGA deleted",
