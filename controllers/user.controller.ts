@@ -130,8 +130,6 @@ export const generateAPIToken = async (req: Request, res: Response) => {
 
     const apiKey = uuidv4();
 
-    console.log(apiKey);
-
     const date = new Date();
     const count = 0;
 
