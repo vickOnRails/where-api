@@ -3,6 +3,8 @@ import mongoose, { Document, Model } from "mongoose";
 
 import LGA from "../models/lga.model";
 
+import { prisma } from "../server";
+
 /**
  * Get States LGA
  *
@@ -15,7 +17,7 @@ const getStateLGAs = async (req: Request, res: Response) => {
 
   try {
     // First ensure country exists
-    const lgas = await LGA.find({ state: stateId });
+    const lgas = await prisma.lGA.findUnique({ where: { id: stateId } });
 
     res.json(lgas);
   } catch (err) {

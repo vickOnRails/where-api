@@ -1,48 +1,27 @@
 import { Request, Response } from "express";
-import Country from "../models/country.model";
-
-import mongoose from "mongoose";
+import { prisma } from "../server";
 
 const getAllCountries = async (req: Request, res: Response) => {
-  const countries = await Country.find({});
-
-  res.json(countries);
+  try {
+    const countries = await prisma.country.findMany();
+    res.json(countries);
+  } catch (err) {
+    throw new Error(err.message);
+  }
 };
-
-// Removed country code because we hand over this functionality to querystrings
-// const getCountryByCode = async (req: Request, res: Response) => {
-//   const { countryCode } = req.params;
-
-//   try {
-//     const country = await Country.findOne({ code: countryCode });
-
-//     if (!country) {
-//       return res.status(404).json({
-//         message: "This country does not exist",
-//       });
-//     }
-
-//     res.json(country);
-//   } catch (err) {
-//     res.status(500).json({
-//       message: err.message,
-//     });
-//   }
-// };
 
 // api/admin/countries
 const createCountry = async (req: Request, res: Response) => {
-  const countryToCreate = new Country({
-    _id: mongoose.Types.ObjectId(),
-    ...req.body,
-  });
+  const { code, name, description } = req.body;
 
-  //  No need to check for duplicated country codes because our
-  // country schema defines the country code as a unique field
-
-  // create country
   try {
-    const createdCountry = await countryToCreate.save();
+    const createdCountry = await prisma.country.create({
+      data: {
+        code,
+        name,
+        description,
+      },
+    });
     res.status(201).json({
       country: createdCountry,
     });
@@ -58,10 +37,12 @@ const getCountryById = async (req: Request, res: Response) => {
   const { countryId } = req.params;
 
   try {
-    const country = await Country.findById(countryId);
-    // .select(
-    //   "_id name description code"
-    // );
+    const country = await prisma.country.findUnique({
+      where: {
+        id: countryId,
+      },
+    });
+
     if (!country) {
       return res.status(404).json({
         message: "This country does not exist",
@@ -82,13 +63,14 @@ const editCountry = async (req: Request, res: Response) => {
   const newValues = req.body;
 
   try {
-    const country = await Country.findByIdAndUpdate(
-      { _id: countryId },
-      {
+    const country = await prisma.country.update({
+      where: {
+        id: countryId,
+      },
+      data: {
         ...newValues,
       },
-      { new: true }
-    );
+    });
 
     if (!country)
       return res.status(404).json({
@@ -110,16 +92,25 @@ const deleteCountry = async (req: Request, res: Response) => {
   const { countryId } = req.params;
 
   try {
-    const docToRemove = await Country.findOneAndDelete({ _id: countryId });
+    const country = await prisma.country.findUnique({
+      where: { id: countryId },
+    });
 
-    if (!docToRemove)
+    if (!country) {
       return res.status(404).json({
         message: "Country does not exist",
       });
+    }
+
+    await prisma.country.delete({
+      where: {
+        id: countryId,
+      },
+    });
 
     res.json({
       message: "Country removed",
-      removedCountry: docToRemove,
+      removedCountry: country,
     });
   } catch (err) {
     res.status(500).json({

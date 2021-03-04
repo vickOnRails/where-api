@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
+import { PrismaClient } from "@prisma/client";
 
 import connectDB from "./db";
 
@@ -26,6 +27,8 @@ app.use(bodyParser.json());
 
 // connect to database
 connectDB();
+
+export const prisma = new PrismaClient();
 
 // Handle navigation and api documentation
 app.use("/api", indexRoutes);
