@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "User" ALTER COLUMN "apiKey" DROP NOT NULL,
+ALTER COLUMN "apiGenerationDate" DROP NOT NULL,
+ALTER COLUMN "apiDailyCount" DROP NOT NULL;
