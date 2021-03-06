@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 // FIXME: Use appropriate types here
 export const matchPassword = async (password: string, user: any) => {

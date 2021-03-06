@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 export const encryptPassword = async (password: string) => {
   if (!password) throw new Error("Please provide a password");
