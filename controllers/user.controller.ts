@@ -244,3 +244,9 @@ export const GetAllUsers = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const disconnect = (req: Request, res: Response) => {
+  if (process.env.ENV === "development") {
+    prisma.$disconnect();
+  }
+};
