@@ -10,8 +10,10 @@ import { prisma } from "../server";
  */
 
 const createNigerianState = async (req: Request, res: Response) => {
-  const { name, code, description } = req.body;
+  const { name, code, description, safeCode, postalCode, cities } = req.body;
   const { countryId } = req.params;
+
+  const citiesArr = cities.split(",");
 
   // first confirm the country with the id exists
   const country = await prisma.country.findUnique({
@@ -31,6 +33,9 @@ const createNigerianState = async (req: Request, res: Response) => {
         name,
         description,
         code,
+        postalCode,
+        safeCode,
+        cities: [...citiesArr],
         country: {
           connect: {
             id: countryId,

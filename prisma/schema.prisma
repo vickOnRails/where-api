@@ -45,8 +45,11 @@ model State {
   id String @default(uuid()) @unique @id
   lgas LGA[]
   name String
-  code String @unique
+  code String? @unique
+  safeCode String?
+  postalCode Int? 
   description String?
+  cities String[]
   country Country @relation(fields: [countryId], references: [id])
   countryId String
   createdAt DateTime @default(now())
