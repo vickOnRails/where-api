@@ -12,6 +12,7 @@ import authRoutes from "./routes/auth.routes";
 import { protect } from "./middleware/protect";
 import { authorizeAdmin } from "./middleware/authorize-admin";
 import { validateAPIKey } from "./middleware/validate-api-key";
+import { logger } from "./util/logger";
 
 // Set configuration to allow parsing of .env variables
 dotenv.config();
@@ -47,4 +48,5 @@ app.use("/api/countries", validateAPIKey, countriesRoutes);
 
 app.listen(PORT, () => {
   console.log(`Listening at port ${PORT}`);
+  logger.info("Server started");
 });
