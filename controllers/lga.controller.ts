@@ -14,7 +14,7 @@ const getStateLGAs = async (req: Request, res: Response) => {
 
   try {
     // First ensure country exists
-    const lgas = await prisma.lGA.findUnique({ where: { id: stateId } });
+    const lgas = await prisma.lGA.findMany({ where: { stateId } });
 
     res.json(lgas);
   } catch (err) {

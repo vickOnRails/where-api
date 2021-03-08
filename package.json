@@ -6,7 +6,8 @@
   "scripts": {
     "start:server": "nodemon --exec ts-node ./server.ts",
     "start": "node dist/server.js",
-    "postinstall": "tsc"
+    "postinstall": "tsc",
+    "seed-db": "nodemon --exec ts-node ./data/seed.ts"
   },
   "author": "",
   "license": "ISC",

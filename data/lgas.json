@@ -1,0 +1,162 @@
+[
+  {
+    "name": "Bauchi",
+    "description": "Bauchi (earlier Yakoba) is a city in northeast Nigeria, the capital of Bauchi State, of the Bauchi Local Government Area within that State, and of the traditional Bauchi Emirate",
+    "code": "bauchi",
+    "postalCode": 740001,
+    "countryId": "f794ecd7-679e-4989-9be6-e081ac2f7145",
+    "stateId": "2e7343e9-84a7-4092-918c-d1b5ce63312d"
+  },
+  {
+    "name": "Tafawa Balewa",
+    "description": "Tafawa Balewa is a local government area in the Southern part of Bauchi State in northern Nigeria. Its headquarters is in the town of Tafawa Balewa",
+    "code": "tafawa-balewa",
+    "postalCode": 740001,
+    "countryId": "f794ecd7-679e-4989-9be6-e081ac2f7145",
+    "stateId": "2e7343e9-84a7-4092-918c-d1b5ce63312d"
+  },
+  {
+    "name": "Dass",
+    "description": "Dass is a Local Government Area of Bauchi State, Nigeria. Its headquarters are in the town of Dass.",
+    "code": "dass",
+    "postalCode": 740001,
+    "countryId": "f794ecd7-679e-4989-9be6-e081ac2f7145",
+    "stateId": "2e7343e9-84a7-4092-918c-d1b5ce63312d"
+  },
+  {
+    "name": "Toro",
+    "description": "Toro is a Local Government Area of Bauchi State, Nigeria. Toro local government headquarters is in the town of Toro",
+    "code": "toro",
+    "postalCode": 740001,
+    "countryId": "f794ecd7-679e-4989-9be6-e081ac2f7145",
+    "stateId": "2e7343e9-84a7-4092-918c-d1b5ce63312d"
+  },
+  {
+    "name": "Bogoro",
+    "description": "Bogoro is a Local Government Area of Bauchi State, Nigeria. Its headquarters are in the town of Bogoro. Za’ar or Sayawa people are the majority of its inhabitants",
+    "code": "bogoro",
+    "postalCode": 740001,
+    "countryId": "f794ecd7-679e-4989-9be6-e081ac2f7145",
+    "stateId": "2e7343e9-84a7-4092-918c-d1b5ce63312d"
+  },
+  {
+    "name": "Ningi",
+    "description": "Ningi is a town, a local government area, and an emirate in Bauchi State, Nigeria. The Ningi emirate comprises two local government areas, Ningi and Warji, with a combined area of 5,250 km2 and a population of 501,912 according to the 2006 Census",
+    "code": "ningi",
+    "postalCode": 740001,
+    "countryId": "f794ecd7-679e-4989-9be6-e081ac2f7145",
+    "stateId": "2e7343e9-84a7-4092-918c-d1b5ce63312d"
+  },
+  {
+    "name": "Warji",
+    "description": "Warji is a Local Government Area of Bauchi State, Nigeria. Its headquarters is in the town of Warji.",
+    "code": "warji",
+    "postalCode": 740001,
+    "countryId": "f794ecd7-679e-4989-9be6-e081ac2f7145",
+    "stateId": "2e7343e9-84a7-4092-918c-d1b5ce63312d"
+  },
+  {
+    "name": "Ganjuwa",
+    "description": "Ganjuwa is a Local Government Area of Bauchi State, Nigeria. It was curved out from the Darazo Local Government in September, 1991 and it's bordered with Jigawa State from the North and Gombe State from the South Eas",
+    "code": "ganjuwa",
+    "postalCode": 740001,
+    "countryId": "f794ecd7-679e-4989-9be6-e081ac2f7145",
+    "stateId": "2e7343e9-84a7-4092-918c-d1b5ce63312d"
+  },
+  {
+    "name": "Kirfi",
+    "description": "Kirfi is a Local Government Area of Bauchi State, Nigeria, bordering Gombe State in the east. Its headquarters are in the town of Kirfi (or Kirfin Kasa). The northeasterly line of equal latitude and longitude passes through the LGA.",
+    "code": "kirfi",
+    "postalCode": 740001,
+    "countryId": "f794ecd7-679e-4989-9be6-e081ac2f7145",
+    "stateId": "2e7343e9-84a7-4092-918c-d1b5ce63312d"
+  },
+  {
+    "name": "Alkaleri",
+    "description": "Alkaleri is a Local Government Area of Bauchi State, Nigeria. Its headquarters are in the town of Alkaleri (or Alkalere) on the A345 highway in the north of the area at10°15′58″N 10°20′07″E. The northeasterly line of equal latitude and longitude passes through the LGA.",
+    "code": "alkaleri",
+    "postalCode": 740001,
+    "countryId": "f794ecd7-679e-4989-9be6-e081ac2f7145",
+    "stateId": "2e7343e9-84a7-4092-918c-d1b5ce63312d"
+  },
+  {
+    "name": "Darazo",
+    "description": "Darazo is a Local Government Area of Bauchi State, Nigeria. Its headquarters are in the town of Darazo.",
+    "code": "darazo",
+    "postalCode": 740001,
+    "countryId": "f794ecd7-679e-4989-9be6-e081ac2f7145",
+    "stateId": "2e7343e9-84a7-4092-918c-d1b5ce63312d"
+  },
+  {
+    "name": "Misau",
+    "description": "Misau is a Local Government Area of Bauchi State, Nigeria. Its headquarters are in the town of Misau. It was founded by Hamman Mangan who ruled as an unofficial King for a period of 25 years at around 1850 AD.",
+    "code": "misau",
+    "postalCode": 740001,
+    "countryId": "f794ecd7-679e-4989-9be6-e081ac2f7145",
+    "stateId": "2e7343e9-84a7-4092-918c-d1b5ce63312d"
+  },
+  {
+    "name": "Giade",
+    "description": "Giade is a Local Government Area of Bauchi State, Nigeria. Its headquarters are in the town of Giade.",
+    "code": "giade",
+    "postalCode": 740001,
+    "countryId": "f794ecd7-679e-4989-9be6-e081ac2f7145",
+    "stateId": "2e7343e9-84a7-4092-918c-d1b5ce63312d"
+  },
+  {
+    "name": "Shira",
+    "description": "Shira is a Local Government Area of Bauchi State, Nigeria. Its headquarters is in the town of Yana.",
+    "code": "shira",
+    "postalCode": 740001,
+    "countryId": "f794ecd7-679e-4989-9be6-e081ac2f7145",
+    "stateId": "2e7343e9-84a7-4092-918c-d1b5ce63312d"
+  },
+  {
+    "name": "Jama'are",
+    "description": "Jama'are is a Local Government Area of Bauchi State, Nigeria. Its headquarters are in the town of Jama'are.",
+    "code": "jamaare",
+    "postalCode": 740001,
+    "countryId": "f794ecd7-679e-4989-9be6-e081ac2f7145",
+    "stateId": "2e7343e9-84a7-4092-918c-d1b5ce63312d"
+  },
+  {
+    "name": "Katagum",
+    "description": "Katagum is a town, a local government area and a traditional emirate in Bauchi State of northern Nigeria",
+    "code": "katagum",
+    "postalCode": 740001,
+    "countryId": "f794ecd7-679e-4989-9be6-e081ac2f7145",
+    "stateId": "2e7343e9-84a7-4092-918c-d1b5ce63312d"
+  },
+  {
+    "name": "Itas/Gadau",
+    "description": "Itas/Gadau is a Local Government Area of Bauchi State, Nigeria. Its headquarters are in the town of Itas Itesiwaju. The town of Gadau is in the east of the area at 11°50′08″N 10°10′02″E.",
+    "code": "itas",
+    "postalCode": 740001,
+    "countryId": "f794ecd7-679e-4989-9be6-e081ac2f7145",
+    "stateId": "2e7343e9-84a7-4092-918c-d1b5ce63312d"
+  },
+  {
+    "name": "Zaki",
+    "description": "Zaki is a Local Government Area of Bauchi State, Nigeria. Its headquarters are in the town of Katagum.",
+    "code": "zaki",
+    "postalCode": 740001,
+    "countryId": "f794ecd7-679e-4989-9be6-e081ac2f7145",
+    "stateId": "2e7343e9-84a7-4092-918c-d1b5ce63312d"
+  },
+  {
+    "name": "Gamawa",
+    "description": "Gamawa is a Local Government Area of Bauchi State, Nigeria, bordering Yobe State in the east. Its headquarters are in the town of Gamawa.",
+    "code": "gamawa",
+    "postalCode": 740001,
+    "countryId": "f794ecd7-679e-4989-9be6-e081ac2f7145",
+    "stateId": "2e7343e9-84a7-4092-918c-d1b5ce63312d"
+  },
+  {
+    "name": "Damban",
+    "description": "Dambam is a Local Government Area of Bauchi State, Nigeria. Its headquarters are in the town of Dambam. It has two district Dagauda and Jalam",
+    "code": "damban",
+    "postalCode": 740001,
+    "countryId": "f794ecd7-679e-4989-9be6-e081ac2f7145",
+    "stateId": "2e7343e9-84a7-4092-918c-d1b5ce63312d"
+  }
+]

@@ -1,10 +1,12 @@
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["createMany"]
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  
 }
 
 // /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
@@ -32,6 +34,7 @@ model LGA {
   id String @default(uuid()) @unique @id
   name String
   code String @unique
+  postalCode Int? 
   description String
   country Country @relation(fields: [countryId], references: [id])
   countryId String
@@ -49,6 +52,7 @@ model State {
   safeCode String?
   postalCode Int? 
   description String?
+  capital String
   cities String[]
   country Country @relation(fields: [countryId], references: [id])
   countryId String

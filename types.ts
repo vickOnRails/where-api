@@ -8,13 +8,15 @@ export interface ICountry extends Document {
   updatedAt: Date;
 }
 export interface IState extends Document {
-  _id: string;
+  id: string;
   name: string;
   code: string;
   description: string;
   country: string;
+  countryId?: string;
   countryName: string;
   countryCode: string;
+  postalCode?: number;
   createdAt: Date;
   updatedAt: Date;
 }

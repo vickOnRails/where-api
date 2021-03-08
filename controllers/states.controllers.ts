@@ -10,7 +10,15 @@ import { prisma } from "../server";
  */
 
 const createNigerianState = async (req: Request, res: Response) => {
-  const { name, code, description, safeCode, postalCode, cities } = req.body;
+  const {
+    name,
+    code,
+    description,
+    safeCode,
+    postalCode,
+    cities,
+    capital,
+  } = req.body;
   const { countryId } = req.params;
 
   const citiesArr = cities.split(",");
@@ -35,6 +43,7 @@ const createNigerianState = async (req: Request, res: Response) => {
         code,
         postalCode,
         safeCode,
+        capital: capital,
         cities: [...citiesArr],
         country: {
           connect: {
