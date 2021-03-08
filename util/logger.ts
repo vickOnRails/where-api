@@ -4,7 +4,7 @@ import { createLogger, format, transports } from "winston";
 const filename = new Date().toISOString().substring(0, 10);
 
 // Get the root path and append the /logs folder to it
-const logsPath = path.resolve(process.env.INIT_CWD as string, `logs`, filename);
+const logsPath = path.resolve(process.cwd(), `logs`, filename);
 
 // configure the logger
 const logger = createLogger({
