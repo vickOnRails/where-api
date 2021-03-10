@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 
 import { v4 as uuidv4 } from "uuid";
-import { prisma } from "../server";
+import { prisma, SKIP, TAKE } from "../server";
 import { generateJWT } from "../util/generateJWT";
 import { IUser } from "../types";
 import { encryptPassword } from "../util/encryptPassword";
@@ -223,8 +223,12 @@ export const MakeAdmin = async (req: Request, res: Response) => {
   }
 };
 
-export const GetAllUsers = async (req: Request, res: Response) => {
+export const GetAllUsers = async (
+  req: Request<any, any, any, any>,
+  res: Response
+) => {
   const { order_by } = req.query;
+  const { skip, take } = req.query;
 
   const direction = order_by?.toString().includes("-fullname") ? "desc" : "asc";
 
@@ -242,6 +246,8 @@ export const GetAllUsers = async (req: Request, res: Response) => {
       orderBy: {
         fullname: direction,
       },
+      skip: parseInt(skip) || SKIP,
+      take: parseInt(take) || TAKE,
     });
 
     res.status(200).json({ users });

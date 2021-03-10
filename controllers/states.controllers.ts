@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
-import { ParsedUrlQuery } from "querystring";
-import { prisma } from "../server";
+import { prisma, SKIP, TAKE } from "../server";
 
 /**
  * Create Nigerian State
@@ -72,9 +71,26 @@ const createNigerianState = async (req: Request, res: Response) => {
  * @param {Response} res - Response object
  * @returns Array of states in Nigeria
  */
-const getAllNigerianStates = async (req: Request, res: Response) => {
+const getAllNigerianStates = async (
+  req: Request<any, any, any, any>,
+  res: Response
+) => {
   const { countryId } = req.params;
-  const { order_by } = req.query;
+  const { order_by, search, take, skip } = req.query;
+
+  let query = {};
+
+  // query to search only the name field
+  if (search) {
+    query = {
+      where: {
+        name: {
+          startsWith: search,
+          mode: "insensitive",
+        },
+      },
+    };
+  }
 
   // functionality for ordering by name
   // Maybe we can make other fields sortable in the future
@@ -98,6 +114,9 @@ const getAllNigerianStates = async (req: Request, res: Response) => {
       orderBy: {
         name: direction,
       },
+      skip: parseInt(skip) || SKIP,
+      take: parseInt(take) || TAKE,
+      ...query,
     });
 
     res.json(states);

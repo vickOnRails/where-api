@@ -17,6 +17,10 @@ import { logger } from "./util/logger";
 // Set configuration to allow parsing of .env variables
 dotenv.config();
 
+// Default values for skip and take
+export const SKIP = 0;
+export const TAKE = 20;
+
 const PORT = process.env.PORT || 5000;
 
 // start express app

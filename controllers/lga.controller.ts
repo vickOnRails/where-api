@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-import { prisma } from "../server";
+import { prisma, SKIP, TAKE } from "../server";
 
 /**
  * Get States LGA
@@ -9,9 +9,26 @@ import { prisma } from "../server";
  * @param {Response} res - Response object
  * @returns Array of LGAs
  */
-const getStateLGAs = async (req: Request, res: Response) => {
+// FIXME: Add appropriate types for request objects
+const getStateLGAs = async (
+  req: Request<any, any, any, any>,
+  res: Response
+) => {
   const { stateId } = req.params;
-  const { order_by } = req.query;
+  const { order_by, search, skip, take } = req.query;
+
+  let searchQuery = {};
+
+  if (search) {
+    searchQuery = {
+      where: {
+        name: {
+          contains: search,
+          mode: "insensitive",
+        },
+      },
+    };
+  }
 
   const direction = order_by?.toString().includes("-name") ? "desc" : "asc";
 
@@ -22,6 +39,10 @@ const getStateLGAs = async (req: Request, res: Response) => {
       orderBy: {
         name: direction,
       },
+      skip: parseInt(skip) || SKIP,
+      take: parseInt(take) || TAKE,
+      // take: take,
+      ...searchQuery,
     });
 
     res.json(lgas);

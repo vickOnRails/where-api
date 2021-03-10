@@ -1,8 +1,23 @@
 import { Request, Response } from "express";
-import { prisma } from "../server";
+import { prisma, SKIP, TAKE } from "../server";
 
-const getAllCountries = async (req: Request, res: Response) => {
-  const { order_by } = req.query;
+const getAllCountries = async (
+  req: Request<any, any, any, any>,
+  res: Response
+) => {
+  const { order_by, search, skip, take } = req.query;
+
+  let searchQuery = {};
+
+  if (search)
+    searchQuery = {
+      where: {
+        name: {
+          contains: search,
+          mode: "insensitive",
+        },
+      },
+    };
 
   const direction = order_by?.toString().includes("-name") ? "desc" : "asc";
 
@@ -11,6 +26,9 @@ const getAllCountries = async (req: Request, res: Response) => {
       orderBy: {
         name: direction,
       },
+      skip: parseInt(skip) || SKIP,
+      take: parseInt(take) || TAKE,
+      ...searchQuery,
     });
     res.json(countries);
   } catch (err) {
