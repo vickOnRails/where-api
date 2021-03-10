@@ -15,6 +15,7 @@ CREATE TABLE "LGA" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "code" TEXT NOT NULL,
+    "postalCode" INTEGER,
     "description" TEXT NOT NULL,
     "countryId" TEXT NOT NULL,
     "stateId" TEXT NOT NULL,
@@ -27,8 +28,13 @@ CREATE TABLE "LGA" (
 -- CreateTable
 CREATE TABLE "State" (
     "id" TEXT NOT NULL,
-    "code" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "code" TEXT,
+    "safeCode" TEXT,
+    "postalCode" INTEGER,
     "description" TEXT,
+    "capital" TEXT NOT NULL,
+    "cities" TEXT[],
     "countryId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -42,10 +48,10 @@ CREATE TABLE "User" (
     "fullname" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
-    "Salt" TEXT NOT NULL,
-    "apiKey" TEXT NOT NULL,
-    "apiGenerationDate" TIMESTAMP(3) NOT NULL,
-    "apiDailyCount" INTEGER NOT NULL DEFAULT 0,
+    "salt" TEXT NOT NULL,
+    "apiKey" TEXT,
+    "apiGenerationDate" TIMESTAMP(3),
+    "apiDailyCount" INTEGER DEFAULT 0,
     "isAdmin" BOOLEAN NOT NULL DEFAULT false,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -73,6 +79,9 @@ CREATE UNIQUE INDEX "State.code_unique" ON "State"("code");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User.id_unique" ON "User"("id");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User.email_unique" ON "User"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User.apiKey_unique" ON "User"("apiKey");
