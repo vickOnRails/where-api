@@ -10,6 +10,16 @@
     "cities": ["Aba"]
   },
   {
+    "name": "Abuja",
+    "code": "abuja",
+    "description": "Abuja is the capital and eighth most populous city of Nigeria. Located in the centre of the country within the Federal Capital Territory (FCT), it is a planned city built mainly in the 1980s.",
+    "countryId": "f794ecd7-679e-4989-9be6-e081ac2f7145",
+    "safeCode": "NG-ABJ",
+    "postalCode": 900211,
+    "capital": "Abuja Municipal Area",
+    "cities": []
+  },
+  {
     "name": "Adamawa",
     "code": "adamawa",
     "description": "Adamawa is a state in northeastern Nigeria, whose capital and largest city is Yola. In 1991, when Taraba State was carved out from Gongola State, the geographical entity Gongola State was renamed Adamawa State, with four administrative divisions: Adamawa, Michika, Ganye, Mubi and Numan",
