@@ -7,7 +7,8 @@
     "start:server": "nodemon --exec ts-node ./server.ts",
     "start": "node dist/server.js",
     "postinstall": "tsc",
-    "seed-db": "ts-node ./data/seed.ts"
+    "seed-db": "ts-node ./data/seed.ts",
+    "identify": "ts-node ./data/utility.ts"
   },
   "author": "",
   "license": "ISC",
