@@ -1,0 +1,15 @@
+[
+  {
+    "fullname": "Victor Ofoegbu",
+    "email": "victorofoegbu@gmail.com",
+    "password": "$2a$10$WdxYZHSA.qIEPhgEYayNBOg4Zd7lidLCnY7V4eYaa9Bp93ZmcDO.6",
+    "salt": "$2a$10$WdxYZHSA.qIEPhgEYayNBO"
+  },
+  {
+    "fullname": "Admin User",
+    "email": "admin@gmail.com",
+    "password": "$2a$10$WdxYZHSA.qIEPhgEYayNBOg4Zd7lidLCnY7V4eYaa9Bp93ZmcDO.6",
+    "salt": "$2a$10$WdxYZHSA.qIEPhgEYayNBO",
+    "isAdmin": true
+  }
+]

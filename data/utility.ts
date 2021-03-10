@@ -1,3 +1,4 @@
+import bcrypt from "bcryptjs";
 import LGAs from "./lgas.json";
 
 // find states with code duplicates and log them to the console
@@ -66,5 +67,14 @@ const checkStateIds = () => {
   });
 };
 
+const encryptPassword = async () => {
+  const password = "123456";
+  let salt: string = await bcrypt.genSalt();
+  let hashedPassword = await bcrypt.hash(password, salt);
+
+  console.log(hashedPassword, salt);
+};
+
 // checkStateCodesDuplicates();
-checkStateIds();
+// checkStateIds();
+encryptPassword();
