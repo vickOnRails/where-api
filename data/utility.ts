@@ -19,42 +19,43 @@ export const checkStateCodesDuplicates = () => {
 // First, we have to give this function a list of all the confirmed StateIds from the database
 const checkStateIds = () => {
   const stateIds = [
-    "cd269093-1687-4b31-8ec1-e978898b81fd",
-    "6038eb35-8a14-4465-bcd0-419dd4614c2d",
-    "1e39acb4-dc78-4bd1-ad16-3b8b03399d4b",
-    "8acc4bb5-0b75-464d-8e6d-275e004db5b5",
-    "2e7343e9-84a7-4092-918c-d1b5ce63312d",
-    "8276768a-bb3d-43bc-942a-f4dccff87f39",
-    "630bd76a-e320-457c-a82d-3d32686f39dd",
-    "2724f5b6-e7be-4e73-a510-c709ffe28ef8",
-    "4ea0ff5c-5089-4a1d-83e9-bc2215812c7b",
-    "edfc7c7e-3bda-426f-b36b-9c8615c203fd",
-    "86651068-31f8-45f6-85d6-bb6150aedf84",
-    "b33ac251-0a62-4081-91b9-5f590998b2cb",
-    "3a114496-90d9-475c-bef0-670839be6f34",
-    "a8ff9b84-9451-4ebf-82e3-04187cc46e90",
-    "b9f05d58-4046-40e2-88a6-0cae9260b1bf",
-    "372bb4c0-f9ac-47a3-b4a4-3275f7611ea9",
-    "57ae40df-fb74-471d-ad6a-1f2ca5ac693d",
-    "fe79a477-7ca0-4c9c-97d6-00fe56c659c9",
-    "e4c18d52-959b-4287-b4c6-10d4879e300e",
-    "02f6a3cc-cb29-4872-800a-3a67415fcd3b",
-    "84649caa-9995-4b83-975e-4ca221626c6b",
-    "50564f5a-5dc0-40a7-af85-f6c28203c25b",
-    "8c594187-00e7-4a4c-98fb-b9e40415a6ae",
-    "c9aa6667-0c77-4674-b8fc-2e773c114bda",
-    "a1264978-483f-4432-a118-f31728d31148",
-    "022fab2e-cc4e-4bdd-98bc-a8c3e28ba1e2",
-    "a55c7023-7ee6-41df-aa5a-b73783505278",
-    "ba48ac76-cc03-4919-a095-4ec302337b67",
-    "80cace5e-5094-4d7e-a45a-bfd1df6ba081",
-    "3d30a058-c652-4dea-82c2-3e71b76661eb",
-    "87e255b7-e3ae-4373-a9e9-ad094b78814e",
-    "0addcbda-0515-4128-b17d-1386e720f331",
-    "76a4e49c-370b-4ba4-b406-0cfed80ac8bc",
-    "60450c7c-b1f7-4f1f-9f38-b5976bcf582f",
-    "9cec8bf1-8b07-401b-9dae-e89c3402087b",
-    "fca35659-af03-4f34-8b57-ec4dfc0d448d",
+    "0b8753e8-77b3-4646-a2f8-a40dd4d00f8a", // Abia
+    "e1e55cab-3e25-49e1-a22f-900c5cbeea56", // Abuja
+    "29c565a4-73fd-446e-b097-2f51bbed422e", // Adamawa
+    "fd4fb39a-e28b-42fd-839c-a934904ec53f", // Akwa Ibom
+    "5b2af037-0b1e-4409-90d5-034aa4607098", // Anambara
+    "b04fbd24-5fa3-40d2-92d6-12903e2abe10", // Bauchi
+    "9d8c0458-bae0-4a98-b86a-63b211188778", // Bayelsa
+    "7f1f1adb-383a-477f-8d0b-6c45aaa9b5a2", // Benue
+    "032bb63f-f40e-449d-bbcc-a4c827629182", // Borno
+    "a7425c88-2a70-4fd0-8f9a-78987b56dfe6", // cross-river
+    "d10fbd1b-2e56-40a1-a363-efbf5b22ffa5", // delta
+    "e42dca5f-bef5-4d01-a008-c894a7b9aeba", // ebony
+    "2bd54e65-526f-4734-a2f3-76dd23731774", // edo
+    "1e5f00e7-12a3-43a5-bd11-073a9488d82a", //ekiti
+    "29ee2439-43f2-42e3-96cc-d283b2af0faa", // enugu
+    "05c06797-9ed7-45b8-b99f-3a756cc30a31", // gombe
+    "b6b37c4d-7b82-4edc-a2b7-c5690d5ceb84", // imo
+    "91fd3f1a-9a29-4589-aa22-040cc51e474f", // jigawa
+    "a053ce5f-a8c4-4de8-bb36-ad24b8cb0598", // kaduna
+    "7c7d1a07-a0a6-41f2-983f-6cf2d6d98700", // kano
+    "0bb7f7f6-8e56-44ba-8bd5-7b42ab343814", // katsina
+    "567b1b6d-3e50-49f1-9049-210e31860263", // kebbi
+    "3d034879-4e3d-43dd-9adb-e69f46d71a16", // kogi
+    "4f199d94-e199-495b-9bfe-3c7c4f38dadb", // kwara
+    "909ea040-7812-4953-970e-48f29ac2d8c5", // lagos
+    "3233ca12-b3eb-4818-8d3c-fa709b0c71c8", // nasarawa
+    "b4ae1170-796e-4390-a42d-c0109e66495d", // niger
+    "636bbb07-b3b0-43a7-8caf-ade121111dec", // ogun
+    "d87eed05-d215-4c95-82a7-31a089ef3e7a", // ondo
+    "5153d2d3-e5c6-4973-b098-fc5c5e8bc4e2", // osun
+    "561bd761-5b6b-44e7-90a4-30fd7dfd5c06", // oyo
+    "bd00e68b-a812-4385-8e53-b05b732d4eaf", //plateau
+    "6178543e-02e9-4a03-9692-c9f43e2fac44", // rivers
+    "746915a0-ee4f-42cb-a714-dbe7a65b5bd4", // sokoto
+    "a36c825f-b7a9-4f4d-99bb-a13b6a1ce40f", // taraba
+    "3b338872-b1ac-425b-a402-7259d8b69bb3", // yobe
+    "190e8f9c-7d01-4550-aaa6-7bdd6c1e6891", // zamfara
   ];
 
   LGAs.map((lga) => {
@@ -66,4 +67,4 @@ const checkStateIds = () => {
 };
 
 // checkStateCodesDuplicates();
-// checkStateIds();
+checkStateIds();

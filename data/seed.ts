@@ -1,12 +1,14 @@
 import { PrismaClient } from "@prisma/client";
 import states from "./states.json";
 import lgas from "./lgas.json";
+import countries from "./country.json";
 
 const prisma = new PrismaClient();
 
 const ALL = `--all`;
 const STATES = `--states`;
 const LGAS = `--lgas`;
+const COUNTRY = "--country";
 
 const main = async () => {
   const { argv } = process;
@@ -14,12 +16,13 @@ const main = async () => {
   if (argv[2] === ALL) {
     await seedNGStates();
     await seedNGLGAs();
-  }
-  if (argv[2] === STATES) {
+    await seedCountry();
+  } else if (argv[2] === STATES) {
     await seedNGStates();
-  }
-  if (argv[2] === LGAS) {
+  } else if (argv[2] === LGAS) {
     await seedNGLGAs();
+  } else if (argv[2] === COUNTRY) {
+    await seedCountry();
   }
 };
 
@@ -36,6 +39,19 @@ const seedNGLGAs = async () => {
   } catch (err) {
     console.log(err);
   }
+};
+
+const seedCountry = async () => {
+  console.log(`Seeding Countries`);
+  try {
+    await prisma.country.deleteMany();
+    const newCountry = await prisma.country.createMany({
+      data: countries,
+    });
+
+    console.log(`Successfully seeded countries`);
+    console.table(newCountry);
+  } catch (err) {}
 };
 
 const seedNGStates = async () => {
