@@ -11,10 +11,18 @@ import { prisma } from "../server";
  */
 const getStateLGAs = async (req: Request, res: Response) => {
   const { stateId } = req.params;
+  const { order_by } = req.query;
+
+  const direction = order_by?.toString().includes("-name") ? "desc" : "asc";
 
   try {
     // First ensure country exists
-    const lgas = await prisma.lGA.findMany({ where: { stateId } });
+    const lgas = await prisma.lGA.findMany({
+      where: { stateId },
+      orderBy: {
+        name: direction,
+      },
+    });
 
     res.json(lgas);
   } catch (err) {

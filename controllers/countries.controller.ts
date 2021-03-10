@@ -2,8 +2,16 @@ import { Request, Response } from "express";
 import { prisma } from "../server";
 
 const getAllCountries = async (req: Request, res: Response) => {
+  const { order_by } = req.query;
+
+  const direction = order_by?.toString().includes("-name") ? "desc" : "asc";
+
   try {
-    const countries = await prisma.country.findMany();
+    const countries = await prisma.country.findMany({
+      orderBy: {
+        name: direction,
+      },
+    });
     res.json(countries);
   } catch (err) {
     throw new Error(err.message);

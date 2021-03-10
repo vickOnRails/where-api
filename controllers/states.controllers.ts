@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { ParsedUrlQuery } from "querystring";
 import { prisma } from "../server";
 
 /**
@@ -73,6 +74,11 @@ const createNigerianState = async (req: Request, res: Response) => {
  */
 const getAllNigerianStates = async (req: Request, res: Response) => {
   const { countryId } = req.params;
+  const { order_by } = req.query;
+
+  // functionality for ordering by name
+  // Maybe we can make other fields sortable in the future
+  const direction = order_by?.toString().includes("-name") ? "desc" : "asc";
 
   // Ensure Nigeria exists
   // const country = await Country.findById(countryId);
@@ -88,7 +94,11 @@ const getAllNigerianStates = async (req: Request, res: Response) => {
     });
 
   try {
-    const states = await prisma.state.findMany();
+    const states = await prisma.state.findMany({
+      orderBy: {
+        name: direction,
+      },
+    });
 
     res.json(states);
   } catch (err) {

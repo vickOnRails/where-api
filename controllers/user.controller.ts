@@ -224,6 +224,10 @@ export const MakeAdmin = async (req: Request, res: Response) => {
 };
 
 export const GetAllUsers = async (req: Request, res: Response) => {
+  const { order_by } = req.query;
+
+  const direction = order_by?.toString().includes("-fullname") ? "desc" : "asc";
+
   try {
     const users = await prisma.user.findMany({
       select: {
@@ -234,6 +238,9 @@ export const GetAllUsers = async (req: Request, res: Response) => {
         apiKey: true,
         apiGenerationDate: true,
         isAdmin: true,
+      },
+      orderBy: {
+        fullname: direction,
       },
     });
 
