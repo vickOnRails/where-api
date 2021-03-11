@@ -76,11 +76,33 @@ const getAllNigerianStates = async (
   res: Response
 ) => {
   const { countryId } = req.params;
-  const { order_by, search, take, skip } = req.query;
+  const { order_by, search, take, skip, fields } = req.query;
+
+  let selectQuery = {};
+
+  // constructs the fields array and selects items from the db on the fly
+  if (fields) {
+    const fieldsArr = fields && fields.split(",");
+
+    selectQuery = {
+      select: {
+        id: fieldsArr.includes("id"),
+        name: fieldsArr.includes("name"),
+        description: fieldsArr.includes("description"),
+        code: fieldsArr.includes("code"),
+        postalCode: fieldsArr.includes("postalCode"),
+        safeCode: fieldsArr.includes("safeCode"),
+        capital: fieldsArr.includes("capital"),
+        cities: fieldsArr.includes("cities"),
+        country: fieldsArr.includes("country"),
+      },
+    };
+  }
 
   let query = {};
 
   // query to search only the name field
+
   if (search) {
     query = {
       where: {
@@ -117,6 +139,7 @@ const getAllNigerianStates = async (
       skip: parseInt(skip) || SKIP,
       take: parseInt(take) || TAKE,
       ...query,
+      ...selectQuery,
     });
 
     res.json(states);
@@ -134,13 +157,39 @@ const getAllNigerianStates = async (
  * @param {Response} res - Response object
  * @returns Array of Nigeria states
  */
-const getNigerianStateById = async (req: Request, res: Response) => {
+const getNigerianStateById = async (
+  req: Request<any, any, any, any>,
+  res: Response
+) => {
   const { stateId } = req.params;
+  const { fields } = req.query;
+
+  let selectQuery = {};
+
+  if (fields) {
+    const fieldsArr = fields && fields.split(",");
+
+    selectQuery = {
+      select: {
+        id: fieldsArr.includes("id"),
+        name: fieldsArr.includes("name"),
+        description: fieldsArr.includes("description"),
+        code: fieldsArr.includes("code"),
+        postalCode: fieldsArr.includes("postalCode"),
+        safeCode: fieldsArr.includes("safeCode"),
+        capital: fieldsArr.includes("capital"),
+        cities: fieldsArr.includes("cities"),
+        country: fieldsArr.includes("country"),
+      },
+    };
+  }
+
   try {
     const state = await prisma.state.findUnique({
       where: {
         id: stateId,
       },
+      ...selectQuery,
     });
 
     if (!state)

@@ -5,7 +5,22 @@ const getAllCountries = async (
   req: Request<any, any, any, any>,
   res: Response
 ) => {
-  const { order_by, search, skip, take } = req.query;
+  const { order_by, search, skip, take, fields } = req.query;
+
+  let selectQuery = {};
+
+  if (fields) {
+    const fieldsArr = fields && fields.split(",");
+
+    selectQuery = {
+      select: {
+        id: fieldsArr.includes("id"),
+        name: fieldsArr.includes("name"),
+        description: fieldsArr.includes("description"),
+        code: fieldsArr.includes("code"),
+      },
+    };
+  }
 
   let searchQuery = {};
 
@@ -29,10 +44,13 @@ const getAllCountries = async (
       skip: parseInt(skip) || SKIP,
       take: parseInt(take) || TAKE,
       ...searchQuery,
+      ...selectQuery,
     });
     res.json(countries);
   } catch (err) {
-    throw new Error(err.message);
+    res.status(500).json({
+      message: err.message,
+    });
   }
 };
 
@@ -59,14 +77,34 @@ const createCountry = async (req: Request, res: Response) => {
 };
 
 // api/admin/countries
-const getCountryById = async (req: Request, res: Response) => {
+const getCountryById = async (
+  req: Request<any, any, any, any>,
+  res: Response
+) => {
   const { countryId } = req.params;
+  const { fields } = req.query;
+
+  let selectQuery = {};
+
+  if (fields) {
+    const fieldsArr = fields && fields.split(",");
+
+    selectQuery = {
+      select: {
+        id: fieldsArr.includes("id"),
+        name: fieldsArr.includes("name"),
+        description: fieldsArr.includes("description"),
+        code: fieldsArr.includes("code"),
+      },
+    };
+  }
 
   try {
     const country = await prisma.country.findUnique({
       where: {
         id: countryId,
       },
+      ...selectQuery,
     });
 
     if (!country) {

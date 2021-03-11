@@ -15,7 +15,25 @@ const getStateLGAs = async (
   res: Response
 ) => {
   const { stateId } = req.params;
-  const { order_by, search, skip, take } = req.query;
+  const { order_by, search, skip, take, fields } = req.query;
+
+  let selectQuery = {};
+
+  if (fields) {
+    const fieldsArr = fields && fields.split(",");
+
+    selectQuery = {
+      select: {
+        id: fieldsArr.includes("id"),
+        name: fieldsArr.includes("name"),
+        description: fieldsArr.includes("description"),
+        code: fieldsArr.includes("code"),
+        postalCode: fieldsArr.includes("postalCode"),
+        state: fieldsArr.includes("state"),
+        country: fieldsArr.includes("country"),
+      },
+    };
+  }
 
   let searchQuery = {};
 
@@ -41,8 +59,8 @@ const getStateLGAs = async (
       },
       skip: parseInt(skip) || SKIP,
       take: parseInt(take) || TAKE,
-      // take: take,
       ...searchQuery,
+      ...selectQuery,
     });
 
     res.json(lgas);
@@ -83,12 +101,38 @@ const createStateLGAs = async (req: Request, res: Response) => {
   }
 };
 
-const getStateLGAById = async (req: Request, res: Response) => {
+const getStateLGAById = async (
+  req: Request<any, any, any, any>,
+  res: Response
+) => {
   const { lgaId } = req.params;
+  const { fields } = req.query;
+
+  let selectQuery = {};
+
+  if (fields) {
+    const fieldsArr = fields && fields.split(",");
+
+    selectQuery = {
+      select: {
+        id: fieldsArr.includes("id"),
+        name: fieldsArr.includes("name"),
+        description: fieldsArr.includes("description"),
+        code: fieldsArr.includes("code"),
+        postalCode: fieldsArr.includes("postalCode"),
+        state: fieldsArr.includes("state"),
+        country: fieldsArr.includes("country"),
+      },
+    };
+  }
+
   try {
-    const lga = await prisma.lGA.findUnique({ where: { id: lgaId } });
+    const lga = await prisma.lGA.findUnique({
+      where: { id: lgaId },
+      ...selectQuery,
+    });
     if (!lga) {
-      res.status(404).json({
+      return res.status(404).json({
         message: "LGA does not exists",
       });
     }

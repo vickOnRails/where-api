@@ -228,9 +228,23 @@ export const GetAllUsers = async (
   res: Response
 ) => {
   const { order_by } = req.query;
-  const { skip, take } = req.query;
+  const { skip, take, fields } = req.query;
 
   const direction = order_by?.toString().includes("-fullname") ? "desc" : "asc";
+  let selectQuery = {};
+
+  if (fields) {
+    const fieldsArr = fields && fields.split(",");
+
+    selectQuery = {
+      select: {
+        id: fieldsArr.includes("id"),
+        fullname: fieldsArr.includes("fullname"),
+        email: fieldsArr.includes("email"),
+        apiDailyCount: fieldsArr.includes("apiDailyCount"),
+      },
+    };
+  }
 
   try {
     const users = await prisma.user.findMany({
@@ -248,6 +262,7 @@ export const GetAllUsers = async (
       },
       skip: parseInt(skip) || SKIP,
       take: parseInt(take) || TAKE,
+      ...selectQuery,
     });
 
     res.status(200).json({ users });
