@@ -16,9 +16,10 @@ const main = async () => {
   const { argv } = process;
 
   if (argv[2] === ALL) {
+    await seedCountry();
     await seedNGStates();
     await seedNGLGAs();
-    await seedCountry();
+    await seedUsers();
   } else if (argv[2] === STATES) {
     await seedNGStates();
   } else if (argv[2] === LGAS) {
