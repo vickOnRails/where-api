@@ -8,6 +8,7 @@
     "start": "node dist/server.js",
     "postinstall": "tsc",
     "seed-db": "ts-node ./data/seed.ts",
+    "clear-db": "ts-node ./data/seed.ts --clear",
     "identify": "ts-node ./data/utility.ts"
   },
   "author": "",

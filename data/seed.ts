@@ -11,6 +11,7 @@ const STATES = `--states`;
 const LGAS = `--lgas`;
 const COUNTRY = "--country";
 const USERS = "--users";
+const CLEAR = "--clear";
 
 const main = async () => {
   const { argv } = process;
@@ -28,7 +29,14 @@ const main = async () => {
     await seedCountry();
   } else if (argv[2] === USERS) {
     await seedUsers();
-  }
+  } else if (argv[2] === CLEAR) await clearDb();
+};
+
+const clearDb = async () => {
+  await prisma.lGA.deleteMany();
+  await prisma.state.deleteMany();
+  await prisma.country.deleteMany();
+  await prisma.user.deleteMany();
 };
 
 const seedNGLGAs = async () => {
