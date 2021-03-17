@@ -164,7 +164,7 @@ const getAllNigerianStates = async (
         data: states.map((state) => {
           return {
             ...state,
-            link: `${baseAPI}/countries/${countryId}/states/${state.id}`,
+            url: `${baseAPI}/countries/${countryId}/states/${state.id}`,
           };
         }),
       })
