@@ -3,10 +3,10 @@ import { Request, Response } from "express";
 import { v4 as uuidv4 } from "uuid";
 import { prisma, SKIP, TAKE } from "../server";
 import { generateJWT } from "../util/generateJWT";
-import { IUser } from "../types";
 import { encryptPassword } from "../util/encryptPassword";
 import { matchPassword } from "../util/matchPassword";
 import { response } from "../util/response";
+import { baseAPI } from "../util/base-api";
 
 /***
  * Register user to system
@@ -313,9 +313,72 @@ export const GetAllUsers = async (
       ...selectQuery,
     });
 
-    res
-      .status(200)
-      .json(response({ data: users, message: "Users fetched", success: true }));
+    res.status(200).json(
+      response({
+        data: users.map((user) => {
+          return { ...user, url: `${baseAPI}/admin/users/${user.id}` };
+        }),
+        message: "Users fetched",
+        success: true,
+      })
+    );
+  } catch (err) {
+    res.status(500).json(
+      response({
+        message: err.message,
+        success: false,
+      })
+    );
+  }
+};
+
+export const GetUser = async (
+  req: Request<any, any, any, any>,
+  res: Response
+) => {
+  const { fields } = req.query;
+  const { userId } = req.params;
+
+  let selectQuery = {};
+
+  if (fields) {
+    const fieldsArr = fields && fields.split(",");
+
+    selectQuery = {
+      select: {
+        id: fieldsArr.includes("id"),
+        fullname: fieldsArr.includes("fullname"),
+        email: fieldsArr.includes("email"),
+        apiDailyCount: fieldsArr.includes("apiDailyCount"),
+      },
+    };
+  }
+
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+
+      select: {
+        id: true,
+        fullname: true,
+        email: true,
+        apiDailyCount: true,
+        apiKey: true,
+        apiGenerationDate: true,
+        isAdmin: true,
+      },
+      ...selectQuery,
+    });
+
+    res.status(200).json(
+      response({
+        data: user,
+        message: "User fetched",
+        success: true,
+      })
+    );
   } catch (err) {
     res.status(500).json(
       response({

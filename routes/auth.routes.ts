@@ -12,9 +12,7 @@ import { protect } from "../middleware/protect";
 const router = express.Router();
 
 // api/auth
-router.route("/").get(protect, authorizeAdmin, GetAllUsers);
-router.route("/:userId").delete(DeleteUser);
-router.route("/:userId/make-admin").put(MakeAdmin);
+
 router.route("/signup").post(RegisterUser);
 router.route("/signin").post(SignUserIn);
 router.route("/generate-api-key").put(protect, generateAPIToken);

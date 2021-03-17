@@ -1,5 +1,7 @@
+import { Country } from ".prisma/client";
 import { Request, Response } from "express";
 import { prisma, SKIP, TAKE } from "../server";
+import { baseAPI } from "../util/base-api";
 
 import { response } from "../util/response";
 
@@ -39,7 +41,7 @@ const getAllCountries = async (
   const direction = order_by?.toString().includes("-name") ? "desc" : "asc";
 
   try {
-    const countries = await prisma.country.findMany({
+    const countries: Country[] = await prisma.country.findMany({
       orderBy: {
         name: direction,
       },
@@ -53,7 +55,9 @@ const getAllCountries = async (
       response({
         success: true,
         message: "Countries fetch successful",
-        data: countries,
+        data: countries.map((country) => {
+          return { ...country, link: `${baseAPI}/countries/${country.id}` };
+        }),
       })
     );
   } catch (err) {

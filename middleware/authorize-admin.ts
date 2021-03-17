@@ -10,6 +10,8 @@ export const authorizeAdmin = async (
     return next();
   }
 
+  console.log(req);
+
   res.status(401);
   res.json({
     message: "Not authorized. Invalid token",

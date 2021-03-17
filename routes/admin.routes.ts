@@ -23,6 +23,14 @@ import {
   deleteStateLGA,
   editStateLGA,
 } from "../controllers/lga.controller";
+import { protect } from "../middleware/protect";
+import { authorizeAdmin } from "../middleware/authorize-admin";
+import {
+  DeleteUser,
+  GetAllUsers,
+  GetUser,
+  MakeAdmin,
+} from "../controllers/user.controller";
 
 // Get All Countries
 // api/admin/countries
@@ -94,5 +102,9 @@ router.delete(
   "/countries/:countryId/states/:stateId/lgas/:lgaId",
   deleteStateLGA
 );
+
+router.route("/users").get(GetAllUsers);
+router.route("/users/:userId").get(GetUser).delete(DeleteUser);
+router.route("/:userId/make-admin").put(MakeAdmin);
 
 export default router;

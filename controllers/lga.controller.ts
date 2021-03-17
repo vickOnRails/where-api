@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 
 import { prisma, SKIP, TAKE } from "../server";
+import { baseAPI } from "../util/base-api";
 import { response } from "../util/response";
 
 /**
@@ -15,7 +16,7 @@ const getStateLGAs = async (
   req: Request<any, any, any, any>,
   res: Response
 ) => {
-  const { stateId } = req.params;
+  const { stateId, countryId } = req.params;
   const { order_by, search, skip, take, fields } = req.query;
 
   let selectQuery = {};
@@ -69,7 +70,12 @@ const getStateLGAs = async (
       response({
         success: true,
         message: "LGAs fetched",
-        data: lgas,
+        data: lgas.map((lga) => {
+          return {
+            ...lga,
+            url: `${baseAPI}/countries/${countryId}/states/${stateId}/lgas/${lga.id}`,
+          };
+        }),
       })
     );
   } catch (err) {

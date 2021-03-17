@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 
 import { prisma, SKIP, TAKE } from "../server";
+import { baseAPI } from "../util/base-api";
 import { response } from "../util/response";
 
 /**
@@ -160,7 +161,12 @@ const getAllNigerianStates = async (
       response({
         success: true,
         message: "States fetched successfully",
-        data: states,
+        data: states.map((state) => {
+          return {
+            ...state,
+            link: `${baseAPI}/countries/${countryId}/states/${state.id}`,
+          };
+        }),
       })
     );
   } catch (err) {
