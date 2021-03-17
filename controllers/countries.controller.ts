@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import { prisma, SKIP, TAKE } from "../server";
 
+import { response } from "../util/response";
+
 const getAllCountries = async (
   req: Request<any, any, any, any>,
   res: Response
@@ -46,11 +48,21 @@ const getAllCountries = async (
       ...searchQuery,
       ...selectQuery,
     });
-    res.json(countries);
+
+    res.json(
+      response({
+        success: true,
+        message: "Countries fetch successful",
+        data: countries,
+      })
+    );
   } catch (err) {
-    res.status(500).json({
-      message: err.message,
-    });
+    res.status(500).json(
+      response({
+        message: err.message,
+        success: false,
+      })
+    );
   }
 };
 
@@ -66,13 +78,20 @@ const createCountry = async (req: Request, res: Response) => {
         description,
       },
     });
-    res.status(201).json({
-      country: createdCountry,
-    });
+    res.status(201).json(
+      response({
+        message: "Country created succesfully",
+        success: true,
+        data: createdCountry,
+      })
+    );
   } catch (err) {
-    res.status(500).json({
-      message: err.message,
-    });
+    res.status(500).json(
+      response({
+        message: err.message,
+        success: false,
+      })
+    );
   }
 };
 
@@ -108,16 +127,22 @@ const getCountryById = async (
     });
 
     if (!country) {
-      return res.status(404).json({
-        message: "This country does not exist",
-      });
+      return res.status(404).json(
+        response({
+          message: "This country does not exist",
+          success: false,
+        })
+      );
     }
 
-    res.json(country);
+    res.json(response({ data: country, success: true }));
   } catch (err) {
-    res.status(500).json({
-      message: err.message,
-    });
+    res.status(500).json(
+      response({
+        success: false,
+        message: err.message,
+      })
+    );
   }
 };
 
@@ -137,18 +162,27 @@ const editCountry = async (req: Request, res: Response) => {
     });
 
     if (!country)
-      return res.status(404).json({
-        message: "This country does not exist",
-      });
+      return res.status(404).json(
+        response({
+          message: "This country does not exist",
+          success: false,
+        })
+      );
 
-    res.json({
-      message: "Country updated",
-      country,
-    });
+    res.json(
+      response({
+        message: "Country updated",
+        success: true,
+        data: country,
+      })
+    );
   } catch (err) {
-    res.status(500).json({
-      message: err.message,
-    });
+    res.status(500).json(
+      response({
+        message: err.message,
+        success: false,
+      })
+    );
   }
 };
 
@@ -161,9 +195,12 @@ const deleteCountry = async (req: Request, res: Response) => {
     });
 
     if (!country) {
-      return res.status(404).json({
-        message: "Country does not exist",
-      });
+      return res.status(404).json(
+        response({
+          message: "Country does not exist",
+          success: false,
+        })
+      );
     }
 
     await prisma.country.delete({
@@ -172,14 +209,20 @@ const deleteCountry = async (req: Request, res: Response) => {
       },
     });
 
-    res.json({
-      message: "Country removed",
-      removedCountry: country,
-    });
+    res.json(
+      response({
+        message: "Country removed",
+        data: country,
+        success: true,
+      })
+    );
   } catch (err) {
-    res.status(500).json({
-      message: err.message,
-    });
+    res.status(500).json(
+      response({
+        message: err.message,
+        success: false,
+      })
+    );
   }
 };
 

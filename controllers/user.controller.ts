@@ -6,6 +6,7 @@ import { generateJWT } from "../util/generateJWT";
 import { IUser } from "../types";
 import { encryptPassword } from "../util/encryptPassword";
 import { matchPassword } from "../util/matchPassword";
+import { response } from "../util/response";
 
 /***
  * Register user to system
@@ -17,9 +18,12 @@ export const RegisterUser = async (req: Request, res: Response) => {
   const { email, password, fullname } = req.body;
 
   if (email === null || password === null || fullname === null)
-    res.status(422).json({
-      message: "Please ensure required fields are filled",
-    });
+    res.status(422).json(
+      response({
+        message: "Please ensure required fields are filled",
+        success: false,
+      })
+    );
 
   const userExists = await prisma.user.findUnique({
     where: {
@@ -46,16 +50,21 @@ export const RegisterUser = async (req: Request, res: Response) => {
     });
 
     if (newUser) {
-      res.status(201).json({
-        message: "User created",
-        user: newUser,
-      });
+      res.status(201).json(
+        response({
+          message: "User created",
+          data: newUser,
+          success: true,
+        })
+      );
     }
   } catch (err) {
-    res.json({
-      message: err.message,
-      stack: err.stack,
-    });
+    res.json(
+      response({
+        message: err.message,
+        success: false,
+      })
+    );
   }
 };
 
@@ -84,19 +93,27 @@ export const SignUserIn = async (req: Request, res: Response) => {
       throw new Error("Login failed. Invalid details");
     }
 
-    res.status(200).json({
-      message: "User authenticated",
-      user: {
-        id: user.id,
-        email: user.email,
-        username: user.fullname,
-        jwt: generateJWT({ id: user.id }),
-      },
-    });
+    res.status(200).json(
+      response({
+        message: "User authenticated",
+        success: true,
+        data: {
+          user: {
+            id: user.id,
+            email: user.email,
+            username: user.fullname,
+            jwt: generateJWT({ id: user.id }),
+          },
+        },
+      })
+    );
   } catch (err) {
-    res.json({
-      message: err.message,
-    });
+    res.json(
+      response({
+        message: err.message,
+        success: false,
+      })
+    );
   }
 };
 
@@ -122,10 +139,15 @@ export const generateAPIToken = async (req: Request, res: Response) => {
 
     if (user.apiKey) {
       res.status(200);
-      return res.json({
-        message: "API key already generated",
-        apiKey: user.apiKey,
-      });
+      return res.json(
+        response({
+          message: "API key already generated",
+          success: true,
+          data: {
+            apiKey: user.apiKey,
+          },
+        })
+      );
     }
 
     const apiKey = uuidv4();
@@ -144,14 +166,22 @@ export const generateAPIToken = async (req: Request, res: Response) => {
       },
     });
 
-    res.send({
-      message: "API key generated",
-      apiKey,
-    });
+    res.json(
+      response({
+        message: "API key generated",
+        success: true,
+        data: {
+          apiKey,
+        },
+      })
+    );
   } catch (err) {
-    res.json({
-      message: err.message,
-    });
+    res.json(
+      response({
+        message: err.message,
+        success: false,
+      })
+    );
   }
 };
 
@@ -166,9 +196,12 @@ export const DeleteUser = async (req: Request, res: Response) => {
     });
 
     if (!user)
-      return res.status(404).json({
-        message: "User does not exist",
-      });
+      return res.status(404).json(
+        response({
+          message: "User does not exist",
+          success: false,
+        })
+      );
 
     await prisma.user.delete({
       where: {
@@ -176,13 +209,19 @@ export const DeleteUser = async (req: Request, res: Response) => {
       },
     });
 
-    res.status(200).json({
-      message: "User deleted successfully",
-    });
+    res.status(200).json(
+      response({
+        message: "User deleted successfully",
+        success: true,
+      })
+    );
   } catch (err) {
-    res.status(500).json({
-      message: err.message,
-    });
+    res.status(500).json(
+      response({
+        message: err.message,
+        success: false,
+      })
+    );
   }
 };
 
@@ -198,9 +237,12 @@ export const MakeAdmin = async (req: Request, res: Response) => {
   });
 
   if (!user)
-    res.status(401).json({
-      message: "User does not exist",
-    });
+    res.status(401).json(
+      response({
+        message: "User does not exist",
+        success: false,
+      })
+    );
 
   try {
     // Make admin
@@ -213,13 +255,19 @@ export const MakeAdmin = async (req: Request, res: Response) => {
       },
     });
 
-    res.status(200).json({
-      message: "User set as admin",
-    });
+    res.status(200).json(
+      response({
+        message: "User set as admin",
+        success: true,
+      })
+    );
   } catch (err) {
-    res.status(500).json({
-      message: err.message,
-    });
+    res.status(500).json(
+      response({
+        message: err.message,
+        success: false,
+      })
+    );
   }
 };
 
@@ -265,16 +313,15 @@ export const GetAllUsers = async (
       ...selectQuery,
     });
 
-    res.status(200).json({ users });
+    res
+      .status(200)
+      .json(response({ data: users, message: "Users fetched", success: true }));
   } catch (err) {
-    res.status(500).json({
-      message: err.message,
-    });
-  }
-};
-
-export const disconnect = (req: Request, res: Response) => {
-  if (process.env.ENV === "development") {
-    prisma.$disconnect();
+    res.status(500).json(
+      response({
+        message: err.message,
+        success: false,
+      })
+    );
   }
 };

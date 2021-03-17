@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 
 import { prisma, SKIP, TAKE } from "../server";
+import { response } from "../util/response";
 
 /**
  * Get States LGA
@@ -19,6 +20,7 @@ const getStateLGAs = async (
 
   let selectQuery = {};
 
+  // If fields exist, configure response data
   if (fields) {
     const fieldsArr = fields && fields.split(",");
 
@@ -63,11 +65,20 @@ const getStateLGAs = async (
       ...selectQuery,
     });
 
-    res.json(lgas);
+    res.json(
+      response({
+        success: true,
+        message: "LGAs fetched",
+        data: lgas,
+      })
+    );
   } catch (err) {
-    res.status(500).json({
-      message: err.message,
-    });
+    res.status(500).json(
+      response({
+        message: err.message,
+        success: false,
+      })
+    );
   }
 };
 
@@ -93,11 +104,20 @@ const createStateLGAs = async (req: Request, res: Response) => {
       },
     });
 
-    res.status(200).json(lgaToCreate);
+    res.status(201).json(
+      response({
+        data: lgaToCreate,
+        success: true,
+        message: "LGA created successfully",
+      })
+    );
   } catch (err) {
-    res.status(500).json({
-      message: err.message,
-    });
+    res.status(500).json(
+      response({
+        message: err.message,
+        success: false,
+      })
+    );
   }
 };
 
@@ -132,15 +152,27 @@ const getStateLGAById = async (
       ...selectQuery,
     });
     if (!lga) {
-      return res.status(404).json({
-        message: "LGA does not exists",
-      });
+      return res.status(404).json(
+        response({
+          message: "LGA does not exists",
+          success: false,
+        })
+      );
     }
-    res.json(lga);
+    res.json(
+      response({
+        data: lga,
+        success: true,
+        message: "LGA fetched",
+      })
+    );
   } catch (err) {
-    res.status(500).json({
-      message: err.message,
-    });
+    res.status(500).json(
+      response({
+        message: err.message,
+        success: false,
+      })
+    );
   }
 };
 
@@ -156,15 +188,27 @@ const getStateLGAByCode = async (req: Request, res: Response) => {
     });
 
     if (!lga) {
-      res.status(404).json({
-        message: "LGA does not exists",
-      });
+      res.status(404).json(
+        response({
+          message: "LGA does not exists",
+          success: false,
+        })
+      );
     }
-    res.json(lga);
+    res.json(
+      response({
+        data: lga,
+        success: true,
+        message: "LGA fetched successfully",
+      })
+    );
   } catch (err) {
-    res.status(500).json({
-      message: err.message,
-    });
+    res.status(500).json(
+      response({
+        message: err.message,
+        success: false,
+      })
+    );
   }
 };
 
@@ -180,9 +224,12 @@ const editStateLGA = async (req: Request, res: Response) => {
     });
 
     if (!lga) {
-      res.status(404).json({
-        message: "LGA does not exists",
-      });
+      res.status(404).json(
+        response({
+          message: "LGA does not exists",
+          success: false,
+        })
+      );
     }
 
     const updatedLGA = await prisma.lGA.update({
@@ -194,14 +241,20 @@ const editStateLGA = async (req: Request, res: Response) => {
       },
     });
 
-    res.json({
-      message: "Updated Successfully",
-      updatedLGA,
-    });
+    res.json(
+      response({
+        message: "Updated Successfully",
+        data: updatedLGA,
+        success: true,
+      })
+    );
   } catch (err) {
-    res.status(500).json({
-      message: err.message,
-    });
+    res.status(500).json(
+      response({
+        message: err.message,
+        success: false,
+      })
+    );
   }
 };
 
@@ -222,13 +275,19 @@ const deleteStateLGA = async (req: Request, res: Response) => {
 
     await prisma.lGA.delete({ where: { id: lga.id } });
 
-    res.status(200).json({
-      message: "LGA deleted",
-    });
+    res.status(200).json(
+      response({
+        message: "LGA deleted",
+        success: true,
+      })
+    );
   } catch (err) {
-    res.status(500).json({
-      message: err.message,
-    });
+    res.status(500).json(
+      response({
+        message: err.message,
+        success: false,
+      })
+    );
   }
 };
 

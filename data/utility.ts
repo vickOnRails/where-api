@@ -59,46 +59,6 @@ const checkStateIds = () => {
     "190e8f9c-7d01-4550-aaa6-7bdd6c1e6891", // zamfara
   ];
 
-  // const stateIds = [
-  //   "3a456bde-7b1d-4435-8a4b-1897625ff4d0", // Abia
-  //   "3614f67f-5132-49b4-8aab-acf3844bf6cf", // Abuja
-  //   "5131db18-3e1e-402d-9fa6-1d683a528df2", // Adamawa
-  //   "a4b5d94d-1523-429d-842f-2391fdaafe8e", // Akwa Ibom
-  //   "3d888902-85b2-4710-aaf7-55e5cad1c869", // Anambara
-  //   "128d7147-50c2-42fd-a046-25c70229fbdf", // Bauchi
-  //   "1324b231-e6d9-41c9-9a2a-2c7ad246b698", // Bayelsa
-  //   "622d6282-9ce6-485c-ba9b-28b851804623", // Benue
-  //   "882a302f-9a86-41f7-b072-d5415e1e720e", // Borno
-  //   "0bed493c-9620-42d1-b636-4c06803360c6", // cross-river
-  //   "14a58f93-977b-446a-ad96-40835ed756bc", // delta
-  //   "07cfaad0-850c-4c9a-8abc-76098405bbc4", // ebony
-  //   "6f1bdcc5-d9d3-4825-8d6c-268bc5eb7d29", // edo
-  //   "b324c0d3-9726-4589-82e0-c737855ca31d", //ekiti
-  //   "28a267f6-b28e-4a7d-a4d0-4242331ecb4b", // enugu
-  //   "fe441535-c526-46c0-9ca4-be11374dc375", // gombe
-  //   "c2adf117-37c9-402c-89b0-f4a393115863", // imo
-  //   "454a59cc-d7bc-4a6e-b5ae-6736b506dfbb", // jigawa
-  //   "f03b8da3-437b-45ac-a725-7cc4c005fbf0", // kaduna
-  //   "240bd3f9-68ba-4823-b42f-7c1fca3b9eeb", // kano
-  //   "0bb7f7f6-8e56-44ba-8bd5-7b42ab343814", // katsina
-  //   "95c3eb4f-6d6e-40f0-a2e0-ba5c94f4a1da", // kebbi
-  //   "d0fb5ce8-1674-4425-a6c4-db0f202ce3d3", // kogi
-  //   "018ba65a-e987-4c76-a139-7a288ed7153f", // kwara
-  //   "8cb055e7-1038-4e6c-8e0c-3a5dc3e26b13", // lagos
-  //   "4d537fa2-f543-400d-a34b-216b4b5c5c8e", // nasarawa
-  //   "02cffe2e-53f8-4ca3-bb5b-112077c0469b", // niger
-  //   "79fef5e6-e734-4f8c-99cc-cec86351132f", // ogun
-  //   "c3eae791-7c10-4c48-ac1d-a841d6966bb7", // ondo
-  //   "d29543f3-22d0-44ed-ab32-f34b4dc81d5e", // osun
-  //   "43b647ea-98db-4c4e-ade3-16050b1328dd", // oyo
-  //   "a7ece1ae-41ea-42bb-b7fc-491c89f44576", //plateau
-  //   "460b9488-b380-44d3-a189-2e142abdb373", // rivers
-  //   "119bd7b6-ff88-4715-af2e-6c09b9e4acb0", // sokoto
-  //   "bf1c3f73-4ed0-4248-94fc-486ccecc108b", // taraba
-  //   "46dc631f-da7f-436e-bedd-3e0e769c8f50", // yobe
-  //   "3780576f-4aa0-4390-9c19-bd53eb935ef3", // zamfara
-  // ];
-
   LGAs.map((lga) => {
     // If the stateId is not in the states table, then log it out
     if (!stateIds.includes(lga.stateId)) {

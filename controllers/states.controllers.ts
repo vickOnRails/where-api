@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
+
 import { prisma, SKIP, TAKE } from "../server";
+import { response } from "../util/response";
 
 /**
  * Create Nigerian State
@@ -31,9 +33,12 @@ const createNigerianState = async (req: Request, res: Response) => {
   });
 
   if (!country)
-    return res
-      .status(404)
-      .json({ message: "No country exists for this state" });
+    return res.status(404).json(
+      response({
+        success: false,
+        message: "No country exists for this state",
+      })
+    );
 
   try {
     const stateToCreate = await prisma.state.create({
@@ -53,14 +58,20 @@ const createNigerianState = async (req: Request, res: Response) => {
       },
     });
 
-    res.status(201).json({
-      message: "Created successfully",
-      stateToCreate,
-    });
+    res.status(201).json(
+      response({
+        message: "Created successfully",
+        data: stateToCreate,
+        success: true,
+      })
+    );
   } catch (err) {
-    res.status(500).json({
-      message: err.message,
-    });
+    res.status(500).json(
+      response({
+        message: err.message,
+        success: false,
+      })
+    );
   }
 };
 
@@ -127,9 +138,12 @@ const getAllNigerianStates = async (
   });
 
   if (!country)
-    return res.status(404).json({
-      message: "This country does not exist",
-    });
+    return res.status(404).json(
+      response({
+        message: "This country does not exist",
+        success: false,
+      })
+    );
 
   try {
     const states = await prisma.state.findMany({
@@ -142,11 +156,20 @@ const getAllNigerianStates = async (
       ...selectQuery,
     });
 
-    res.json(states);
+    res.json(
+      response({
+        success: true,
+        message: "States fetched successfully",
+        data: states,
+      })
+    );
   } catch (err) {
-    res.status(500).json({
-      message: err.message,
-    });
+    res.status(500).json(
+      response({
+        message: err.message,
+        success: false,
+      })
+    );
   }
 };
 
@@ -193,15 +216,27 @@ const getNigerianStateById = async (
     });
 
     if (!state)
-      return res.status(404).json({
-        message: "State does not exist",
-      });
+      return res.status(404).json(
+        response({
+          message: "State does not exist",
+          success: false,
+        })
+      );
 
-    res.json(state);
+    res.json(
+      response({
+        data: state,
+        success: true,
+        message: "State fetched successfully",
+      })
+    );
   } catch (err) {
-    res.status(404).json({
-      message: err.message,
-    });
+    res.status(404).json(
+      response({
+        message: err.message,
+        success: false,
+      })
+    );
   }
 };
 
@@ -233,13 +268,20 @@ const deleteNigerianState = async (req: Request, res: Response) => {
       },
     });
 
-    res.status(200).json({
-      message: "Deleted successfully",
-    });
+    res.status(200).json(
+      response({
+        message: "Deleted successfully",
+        success: true,
+        data: state,
+      })
+    );
   } catch (err) {
-    res.json({
-      message: err.message,
-    });
+    res.json(
+      response({
+        message: err.message,
+        success: false,
+      })
+    );
   }
 };
 
@@ -275,14 +317,20 @@ const editNigerianState = async (req: Request, res: Response) => {
       },
     });
 
-    res.status(200).json({
-      message: "State updated",
-      updatedState: updatedState,
-    });
+    res.status(200).json(
+      response({
+        message: "State updated",
+        success: true,
+        data: updatedState,
+      })
+    );
   } catch (err) {
-    res.json({
-      message: err.message,
-    });
+    res.json(
+      response({
+        message: err.message,
+        success: false,
+      })
+    );
   }
 };
 
