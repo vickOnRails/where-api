@@ -2,8 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import { PrismaClient } from "@prisma/client";
-
-import connectDB from "./db";
+import cors from "cors";
 
 import countriesRoutes from "./routes/countries.routes";
 import adminRoutes from "./routes/admin.routes";
@@ -25,6 +24,13 @@ const PORT = process.env.PORT || 5000;
 
 // start express app
 const app = express();
+
+// configure cross origin requests sharing
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 // setup body parser to parse request body
 app.use(bodyParser.urlencoded({ extended: false }));
