@@ -8,7 +8,6 @@ import {
   deleteNigerianState,
   editNigerianState,
 } from "../controllers/states.controllers";
-
 import {
   createCountry,
   deleteCountry,
@@ -23,14 +22,8 @@ import {
   deleteStateLGA,
   editStateLGA,
 } from "../controllers/lga.controller";
-import { protect } from "../middleware/protect";
-import { authorizeAdmin } from "../middleware/authorize-admin";
-import {
-  DeleteUser,
-  GetAllUsers,
-  GetUser,
-  MakeAdmin,
-} from "../controllers/user.controller";
+import { GetAllUsers } from "../controllers/user.controller";
+import { MakeAdmin } from "../controllers/admin.controllers";
 
 // Get All Countries
 // api/admin/countries

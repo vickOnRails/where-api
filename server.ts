@@ -13,6 +13,7 @@ import { protect } from "./middleware/protect";
 import { authorizeAdmin } from "./middleware/authorize-admin";
 import { validateAPIKey } from "./middleware/validate-api-key";
 import { logger } from "./util/logger";
+import { validateClient } from "./middleware/validate-client";
 
 // Set configuration to allow parsing of .env variables
 dotenv.config();
@@ -60,7 +61,8 @@ app.use("/api/countries", validateAPIKey, countriesRoutes);
 // Responds to all client requests
 
 // FIXME: Please add the middleware to ensure only clientId passes here
-app.use("/api/client", clientRoutes);
+// We might need to beef up the security a bit here
+app.use("/api/client", validateClient, clientRoutes);
 
 app.listen(PORT, () => {
   console.log(`Listening at port ${PORT}`);
