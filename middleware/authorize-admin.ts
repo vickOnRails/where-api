@@ -6,13 +6,14 @@ export const authorizeAdmin = async (
   next: NextFunction
 ) => {
   //@ts-ignore
+  console.log(req.user);
+  //@ts-ignore
   if (req.user && req.user.isAdmin) {
     return next();
   }
 
-  console.log(req);
-
   res.status(401);
+
   res.json({
     message: "Not authorized. Invalid token",
   });

@@ -50,6 +50,8 @@ app.use("/api/auth", authRoutes);
 // Handle All admin related operations
 app.use("/api/admin", protect, authorizeAdmin, adminRoutes);
 
+app.use("/api/admin", protect, authorizeAdmin, adminRoutes);
+
 // Handle all countries related functionality
 // We don't really need the protect middleware here since this particular requests to the server do not make use of JWT, but apikeys
 // app.use("/api/countries", protect, countriesRoutes);

@@ -98,7 +98,7 @@ const getAllNigerianStates = async (
 
     selectQuery = {
       select: {
-        id: fieldsArr.includes("id"),
+        id: true,
         name: fieldsArr.includes("name"),
         description: fieldsArr.includes("description"),
         code: fieldsArr.includes("code"),

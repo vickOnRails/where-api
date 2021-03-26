@@ -53,7 +53,7 @@ export const RegisterUser = async (req: Request, res: Response) => {
       res.status(201).json(
         response({
           message: "User created",
-          data: newUser,
+          data: { id: newUser.id, jwt: generateJWT({ id: newUser.id }) },
           success: true,
         })
       );
@@ -100,8 +100,8 @@ export const SignUserIn = async (req: Request, res: Response) => {
         data: {
           user: {
             id: user.id,
-            email: user.email,
-            username: user.fullname,
+            // email: user.email,
+            // username: user.fullname,
             jwt: generateJWT({ id: user.id }),
           },
         },
@@ -368,6 +368,7 @@ export const GetUser = async (
         apiKey: true,
         apiGenerationDate: true,
         isAdmin: true,
+        createdAt: true,
       },
       ...selectQuery,
     });
