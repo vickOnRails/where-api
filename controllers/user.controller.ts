@@ -14,108 +14,108 @@ import { baseAPI } from "../util/base-api";
  * @param {Response} res
  */
 
-export const RegisterUser = async (req: Request, res: Response) => {
-  const { email, password, fullname } = req.body;
+// export const RegisterUser = async (req: Request, res: Response) => {
+//   const { email, password, fullname } = req.body;
 
-  if (email === null || password === null || fullname === null)
-    res.status(422).json(
-      response({
-        message: "Please ensure required fields are filled",
-        success: false,
-      })
-    );
+//   if (email === null || password === null || fullname === null)
+//     res.status(422).json(
+//       response({
+//         message: "Please ensure required fields are filled",
+//         success: false,
+//       })
+//     );
 
-  const userExists = await prisma.user.findUnique({
-    where: {
-      email: email,
-    },
-  });
+//   const userExists = await prisma.user.findUnique({
+//     where: {
+//       email: email,
+//     },
+//   });
 
-  try {
-    if (userExists) {
-      res.status(400);
-      throw new Error("This user already exists");
-    }
+//   try {
+//     if (userExists) {
+//       res.status(400);
+//       throw new Error("This user already exists");
+//     }
 
-    const { hashedPassword, salt } = await encryptPassword(password);
+//     const { hashedPassword, salt } = await encryptPassword(password);
 
-    const newUser = await prisma.user.create({
-      data: {
-        email,
-        fullname,
-        isAdmin: false,
-        password: hashedPassword,
-        salt,
-      },
-    });
+//     const newUser = await prisma.user.create({
+//       data: {
+//         email,
+//         fullname,
+//         isAdmin: false,
+//         password: hashedPassword,
+//         salt,
+//       },
+//     });
 
-    if (newUser) {
-      res.status(201).json(
-        response({
-          message: "User created",
-          data: { id: newUser.id, jwt: generateJWT({ id: newUser.id }) },
-          success: true,
-        })
-      );
-    }
-  } catch (err) {
-    res.json(
-      response({
-        message: err.message,
-        success: false,
-      })
-    );
-  }
-};
+//     if (newUser) {
+//       res.status(201).json(
+//         response({
+//           message: "User created",
+//           data: { id: newUser.id, jwt: generateJWT({ id: newUser.id }) },
+//           success: true,
+//         })
+//       );
+//     }
+//   } catch (err) {
+//     res.json(
+//       response({
+//         message: err.message,
+//         success: false,
+//       })
+//     );
+//   }
+// };
 
 /***
  * Log in User
  * @param {Request} req
  * @param {Response} res
  */
-export const SignUserIn = async (req: Request, res: Response) => {
-  const { email, password } = req.body;
+// export const SignUserIn = async (req: Request, res: Response) => {
+//   const { email, password } = req.body;
 
-  // const userExists = await User.findOne({ email }).select(
-  //   "_id email isAdmin username password"
-  // );
+//   // const userExists = await User.findOne({ email }).select(
+//   //   "_id email isAdmin username password"
+//   // );
 
-  const user = await prisma.user.findUnique({
-    where: {
-      email,
-    },
-  });
+//   const user = await prisma.user.findUnique({
+//     where: {
+//       email,
+//     },
+//   });
 
-  try {
-    // Return error if user does not exist or passwords do not match
-    if (!user || !(await matchPassword(password, user))) {
-      res.status(400);
-      throw new Error("Login failed. Invalid details");
-    }
+//   try {
+//     // Return error if user does not exist or passwords do not match
+//     if (!user || !(await matchPassword(password, user))) {
+//       res.status(400);
+//       throw new Error("Login failed. Invalid details");
+//     }
 
-    res.status(200).json(
-      response({
-        message: "User authenticated",
-        success: true,
-        data: {
-          user: {
-            id: user.id,
-            // email: user.email,
-            // username: user.fullname,
-            jwt: generateJWT({ id: user.id }),
-          },
-        },
-      })
-    );
-  } catch (err) {
-    res.json(
-      response({
-        message: err.message,
-        success: false,
-      })
-    );
-  }
-};
+//     res.status(200).json(
+//       response({
+//         message: "User authenticated",
+//         success: true,
+//         data: {
+//           user: {
+//             id: user.id,
+//             // email: user.email,
+//             // username: user.fullname,
+//             jwt: generateJWT({ id: user.id }),
+//           },
+//         },
+//       })
+//     );
+//   } catch (err) {
+//     res.json(
+//       response({
+//         message: err.message,
+//         success: false,
+//       })
+//     );
+//   }
+// };
 
 /***
  * Generate API Token for user

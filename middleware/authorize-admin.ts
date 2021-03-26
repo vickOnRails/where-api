@@ -6,8 +6,6 @@ export const authorizeAdmin = async (
   next: NextFunction
 ) => {
   //@ts-ignore
-  console.log(req.user);
-  //@ts-ignore
   if (req.user && req.user.isAdmin) {
     return next();
   }

@@ -104,7 +104,6 @@ router.delete(
 );
 
 router.route("/users").get(GetAllUsers);
-router.route("/users/:userId").get(GetUser).delete(DeleteUser);
 router.route("/:userId/make-admin").put(MakeAdmin);
 
 export default router;
