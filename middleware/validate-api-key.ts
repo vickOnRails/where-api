@@ -8,6 +8,12 @@ export const validateAPIKey = async (
   res: Response,
   next: NextFunction
 ) => {
+  const origin = req.get("origin");
+
+  if (origin === "https://tutorial.whereapi.xyz") {
+    next();
+  }
+
   try {
     const apiKey = req.header("x-api-key");
 
