@@ -66,6 +66,13 @@ export const SignUserIn = async (req: Request, res: Response) => {
 export const RegisterUser = async (req: Request, res: Response) => {
   const { email, password, fullname } = req.body;
 
+  if (!/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).*$/.test(password)) {
+    return res.status(422).json({
+      message:
+        "Please select a stronger password. Password should have an uppercase, lowercase and a digit.",
+    });
+  }
+
   if (email === null || password === null || fullname === null)
     res.status(422).json(
       response({
