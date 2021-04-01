@@ -73,7 +73,7 @@ export const validateAPIKey = async (
         },
         data: {
           apiGenerationDate: new Date(),
-          apiDailyCount: (user.apiDailyCount as number) + 1,
+          apiDailyCount: 1,
         },
       });
     }
