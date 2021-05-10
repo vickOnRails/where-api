@@ -22,7 +22,10 @@ export const validateClient = async (
     const isPostman = req.headers["user-agent"]?.startsWith("Postman");
 
     // if ((origin && ORIGINS?.split(",").includes(origin)) || isPostman) {
-    if (origin || isPostman) {
+    if (
+      (origin && ["https://beta.whereapi.xyz"].includes(origin)) ||
+      isPostman
+    ) {
       next();
     } else {
       res.status(401);
