@@ -21,7 +21,8 @@ export const validateClient = async (
     // FIXME: But disable this in production so someone doesn't just bring this into their postman client and perform the request
     const isPostman = req.headers["user-agent"]?.startsWith("Postman");
 
-    if ((origin && ORIGINS?.split(",").includes(origin)) || isPostman) {
+    // if ((origin && ORIGINS?.split(",").includes(origin)) || isPostman) {
+    if (origin || isPostman) {
       next();
     } else {
       res.status(401);

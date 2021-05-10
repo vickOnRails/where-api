@@ -9,6 +9,7 @@ import { IUser } from "../types";
  * @param {Response} res
  * @param {NextFunction} next
  */
+
 export const protect = async (
   req: Request,
   res: Response,
