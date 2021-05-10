@@ -15,13 +15,19 @@ export const validateClient = async (
     // Ensure the host is either localhost:5000 or whereapi.xyz
     const origin = req.get("origin");
 
+    // console.log({ host: req.get("host"), origin: req.get("origin") });
+
     // I was thinking of adding the headers, but we could do that later since this basic setup works
 
     // If this is a postman setup, let the request go
     // FIXME: But disable this in production so someone doesn't just bring this into their postman client and perform the request
     const isPostman = req.headers["user-agent"]?.startsWith("Postman");
 
-    if ((origin && ORIGINS?.split(",").includes(origin)) || isPostman) {
+    // console.log(origin);
+
+    // if ((origin && ORIGINS?.split(",").includes(origin)) || isPostman) {
+
+    if ((origin && ORIGINS?.includes(origin)) || isPostman) {
       next();
     } else {
       res.status(401);
