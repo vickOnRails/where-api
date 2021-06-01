@@ -1,3 +1,4 @@
+import {} from ".prisma/client";
 import { Request, Response } from "express";
 
 import { prisma, SKIP, TAKE } from "../server";
@@ -13,15 +14,8 @@ import { response } from "../util/response";
  */
 
 const createNigerianState = async (req: Request, res: Response) => {
-  const {
-    name,
-    code,
-    description,
-    safeCode,
-    postalCode,
-    cities,
-    capital,
-  } = req.body;
+  const { name, code, description, safeCode, postalCode, cities, capital } =
+    req.body;
   const { countryId } = req.params;
 
   const citiesArr = cities.split(",");
@@ -161,7 +155,8 @@ const getAllNigerianStates = async (
       response({
         success: true,
         message: "States fetched successfully",
-        data: states.map((state) => {
+        // TODO: use appropriate types
+        data: states.map((state: any) => {
           return {
             ...state,
             url: `${baseAPI}/countries/${countryId}/states/${state.id}`,

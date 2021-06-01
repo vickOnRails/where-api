@@ -70,7 +70,8 @@ const getStateLGAs = async (
       response({
         success: true,
         message: "LGAs fetched",
-        data: lgas.map((lga) => {
+        // TODO: change for appropriate types
+        data: lgas.map((lga: any) => {
           return {
             ...lga,
             url: `${baseAPI}/countries/${countryId}/states/${stateId}/lgas/${lga.id}`,

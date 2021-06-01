@@ -5,15 +5,9 @@ import { PrismaClient } from "@prisma/client";
 import cors from "cors";
 
 import countriesRoutes from "./routes/countries.routes";
-import adminRoutes from "./routes/admin.routes";
 import indexRoutes from "./routes";
-import authRoutes from "./routes/auth.routes";
-import clientRoutes from "./routes/client.routes";
-import { protect } from "./middleware/protect";
-import { authorizeAdmin } from "./middleware/authorize-admin";
-import { validateAPIKey } from "./middleware/validate-api-key";
+
 import { logger } from "./util/logger";
-import { validateClient } from "./middleware/validate-client";
 
 // Set configuration to allow parsing of .env variables
 dotenv.config();
@@ -38,31 +32,12 @@ app.use(
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// connect to database
-// connectDB();
-
 export const prisma = new PrismaClient();
 
 // Handle navigation and api documentation
 app.use("/api", indexRoutes);
 
-// Handle navigation and api documentation
-app.use("/api/auth", authRoutes);
-
-// Handle All admin related operations
-app.use("/api/admin", protect, authorizeAdmin, adminRoutes);
-
-// Handle all countries related functionality
-// We don't really need the protect middleware here since this particular requests to the server do not make use of JWT, but apikeys
-// app.use("/api/countries", protect, countriesRoutes);
-
-app.use("/api/countries", validateAPIKey, countriesRoutes);
-
-// Responds to all client requests
-
-// FIXME: Please add the middleware to ensure only clientId passes here
-// We might need to beef up the security a bit here
-app.use("/api/client", validateClient, clientRoutes);
+app.use("/api/countries", countriesRoutes);
 
 app.listen(PORT, () => {
   console.log(`Listening at port ${PORT}`);

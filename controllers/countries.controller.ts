@@ -1,4 +1,3 @@
-import { Country } from ".prisma/client";
 import { Request, Response } from "express";
 import { prisma, SKIP, TAKE } from "../server";
 import { baseAPI } from "../util/base-api";
@@ -41,7 +40,7 @@ const getAllCountries = async (
   const direction = order_by?.toString().includes("-name") ? "desc" : "asc";
 
   try {
-    const countries: Country[] = await prisma.country.findMany({
+    const countries = await prisma.country.findMany({
       orderBy: {
         name: direction,
       },
